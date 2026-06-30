@@ -1,0 +1,45 @@
+1. **Full forms and one-line uses:**
+
+   * **HTTP (HyperText Transfer Protocol):** Used to transfer web pages between a browser and a web server.
+   * **HTTPS (HyperText Transfer Protocol Secure):** A secure version of HTTP that encrypts data sent over the internet.
+   * **FTP (File Transfer Protocol):** Used to upload and download files between computers over a network.
+   * **SMTP (Simple Mail Transfer Protocol):** Used to send emails from one mail server to another.
+
+2. **Difference between IPv4 and IPv6 (2 lines):**
+
+   * **IPv4** uses **32-bit** addresses (e.g., `192.168.1.1`) and supports about **4.3 billion** unique addresses.
+   * **IPv6** uses **128-bit** addresses (e.g., `2001:db8::1`) and provides a much larger number of unique addresses.
+
+3. **`nslookup google.com` IP address:**
+
+   * I can't run commands on your computer, so I can't provide the exact IP address you get.
+   * Run this command in your Command Prompt or Terminal:
+
+     ```bash
+     nslookup google.com
+     ```
+
+     The returned IP address may vary depending on your location and Google's DNS servers.
+
+4. **HTTP status codes:**
+
+   * **200 OK:** The request was successful.
+   * **301 Moved Permanently:** The requested page has been permanently moved to a new URL.
+   * **404 Not Found:** The requested page or resource does not exist.
+   * **500 Internal Server Error:** The server encountered an unexpected error.
+   * **403 Forbidden:** The server understands the request but refuses to allow access.
+
+5. **DNS hierarchy using `www.google.com`:**
+
+   * **Root (`.`):** The top level of the DNS hierarchy (usually hidden).
+   * **TLD (Top-Level Domain):** `com`
+   * **Domain:** `google`
+   * **Subdomain:** `www`
+
+   **Example:**
+   `www.google.com`
+
+   * `www` → Subdomain
+   * `google` → Domain
+   * `com` → Top-Level Domain (TLD)
+   * `.` → Root DNS (implicit)
