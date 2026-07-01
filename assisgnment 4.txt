@@ -15,17 +15,6 @@
 | Requirements can change during the project.        | Requirements are usually fixed before development starts.         |
 | Customer feedback is collected regularly.          | Customer feedback is mostly taken after the project is completed. |
 
-3. **Three main Scrum roles:**
-
-   * **Product Owner:** Defines and prioritizes the product backlog to maximize business value.
-   * **Scrum Master:** Guides the Scrum process, removes obstacles, and helps the team follow Scrum practices.
-   * **Development Team:** Designs, develops, tests, and delivers the product increment.
-
-4. **What is a Sprint in Scrum?**
-
-   * A **Sprint** is a fixed period during which the Scrum team completes a set of planned work to deliver a usable product increment.
-   * **Typical duration:** **1 to 4 weeks** (most commonly **2 weeks**).
-
 5. **Meaning of Jira board columns:**
 
    * **Backlog:** A list of tasks or user stories waiting to be planned.
