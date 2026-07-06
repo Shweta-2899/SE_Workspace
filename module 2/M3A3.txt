@@ -1,0 +1,67 @@
+1.
+Declare variables for a Flipkart product: productName (as a string), price (float), and rating (double). Assign sample values and print each variable with its data type.
+
+
+#include <stdio.h>
+#include <conio.h>
+void main(){
+     char product_Name='A'; 
+     float price= 899.99;
+     double rating=4.5;
+     
+     printf("\nproductName is :- %c",product_Name);
+     printf("\nProductprice is :- %f",price);
+     printf("\nProduct rating is :- %1f",rating);
+     getch();
+    
+}
+
+2.
+Create a constant variable to store the GST rate (for example, 18%) and use it to calculate the final price of a Zomato order with a given base price. The GST rate must not be changeable after its initial assignment.
+
+#include <stdio.h>
+#include <conio.h>
+void main(){
+    
+     const float gst_rate=0.18;
+     float baseprice=800;
+     
+     float gstamount=baseprice*gst_rate;
+     float finalprice=gstamount+baseprice;
+     
+     printf("\nProduct Baseprice :- %f",baseprice);
+     printf("\nProduct GSTAmount :- %f",gstamount);
+     printf("\nProduct Finalprice :- %f",finalprice);
+    getch();
+}
+
+
+
+3.
+Write a program that stores your favorite Spotify playlist's name (string), total number of songs (int), and average song duration in minutes (float). Print all values in a single formatted sentence.
+
+#include <stdio.h>
+#include <conio.h>
+void main(){
+    
+    char playlist_name = 's';
+    int  total_songs = 10;
+    float avg_song_duration= 3.45;
+    
+    printf("My fav Spotify playlist is %c. It has %d songs and Song duration is %f minutes",playlist_name,total_songs,avg_song_duration);
+    getch();
+}
+
+
+4.
+Identify and correct the invalid variable names from this list: 1stPlayer, player_age, $score, total-marks, userName. Apply standard variable naming rules for your programming language.
+
+1stPlayer :- Invalid variable name   correct :- player1 
+
+player_age :-valid variable name 
+
+$score    :- Invalid variable name   correct :- score
+
+total-marks :- Invalid variable name  correct :-total_marks
+
+username :-  valid variable name

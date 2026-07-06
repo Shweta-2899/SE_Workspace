@@ -1,0 +1,33 @@
+1) Write a short paragraph in your own words defining what a 'program' is and give one real-life example from any app you use daily (like Instagram, Zomato, or Paytm).
+
+A program is a set of instructions written in a programming language that tells a computer or mobile device what tasks to perform. It helps users complete different activities automatically and accurately.
+
+Example: When I use Instagram, the program loads my feed, displays posts and reels, and allows me to like, comment, and share content.
+
+
+
+
+ 2. List three popular programming languages you have heard of, and for each, mention whether it is usually compiled, interpreted, or can be both. Hint: Think of languages like Java, Python, and JavaScript.
+
+Programming Language	      Type
+Python	                     Interpreted
+Java	                    Compiled and Interpreted
+JavaScript	             Interpreted
+
+
+
+ 4. Write down the steps (as an algorithm, using simple numbered instructions) for ordering food on Swiggy — from opening the app to completing payment.
+
+1   Open the Swiggy App.
+2   Log in to your account.
+3   Enter or confirm your delivery location.
+4   Search for a restaurant or food item.
+5   Select the restaurant.
+6   Choose the food items you want.
+7   Add the items to the cart.
+8   Review the order and delivery address.
+9   Choose a payment method.
+10  Complete the payment.
+11  Receive the order confirmation.
+12  Track the delivery until the food arrives.
+13  End.
