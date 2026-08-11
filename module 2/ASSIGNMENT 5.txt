@@ -12,11 +12,8 @@ void main(){
     else if(team=='C'){
         printf("Chennai Super Kings for the win!");
     }
-    else if(team=='H'){
-        printf("Rise Up, Sunrisers Hyderabad!");
-    }
-    else if(team=='L'){
-        printf("Let's Go Lucknow Super Giants!");
+    else if(team=='G'){
+        printf("Roar, Gujarat Titans!");
     }
     else
     {
@@ -41,19 +38,19 @@ void main(){
     switch(meal){
         
         case 'b':
-        printf("Suggest to poha");
+        printf("Suggest to Idli sambhar");
         break;
         
         case 'l':
-        printf("Suggest to Punjabi dish");
+        printf("Suggest to Gujarati Thali");
         break;
         
         case 'd':
-        printf("Suggest to Biryani");
+        printf("Suggest to Paubhaji");
         break;
         
         case 's':
-        printf("Suggest to samosa");
+        printf("Suggest to Panipuri");
         break;
         
         default :
@@ -74,17 +71,17 @@ Create a Flipkart discount calculator that asks the user for the total cart amou
 #include <conio.h>
 void main(){
     
-    float cart_amount=3000;
+    float cart_amount=1500;
     float final_amount;
     
     if(cart_amount>2000){
         final_amount=cart_amount-(cart_amount*0.20);
-        printf("Congrulation to get 20per off in your product %f",final_amount);
+        printf("Congartulations on getting 20per off in your product %f",final_amount);
         
     }
     else if(cart_amount >1000){
         final_amount=cart_amount-(cart_amount*0.10);
-        printf("Congrulation to get 10per off in your product %f",final_amount);
+        printf("Congratulations on getting 10per off in your product %f",final_amount);
     }
     else {
         printf("No discount final Amount to pay %f",cart_amount);
@@ -104,7 +101,7 @@ Write a program that takes a user's age and checks eligibility for three things 
 #include <conio.h>
 void main(){
     
-    int age=28;
+    int age=26;
     
     if(age>=18){
         printf("\n Eligible for Driving License");
@@ -125,5 +122,4 @@ void main(){
     getch();
     
 }
-
 

@@ -1,0 +1,90 @@
+1.Declare a string variable called songTitle and assign it the value 'Tum Hi Ho'. Print the length of the string using strlen().
+
+#include <stdio.h>
+#include<conio.h>
+#include<string.h>
+int main()
+{
+    char songtitle[30]="Tum Hi Ho";
+    
+    printf("%d",strlen(songtitle));
+
+    return 0;
+}
+
+2.Take input for two usernames (as strings) and compare them using strcmp(). Display whether they are the same or different.
+
+#include <stdio.h>
+#include<conio.h>
+#include<string.h>
+int main()
+{
+    char username[30];
+    char username2[30];
+    
+    printf("enter your username ");
+    scanf("%s",&username);
+    
+    printf("enter your username ");
+    scanf("%s",&username2);
+    
+    if(strcmp(username,username2)==0)
+    {
+        printf("username is same");
+    }
+    else
+    {
+        printf("User name is different");
+    }
+    
+
+    return 0;
+}
+
+
+3.Copy the string 'Flipkart' into another string variable called shoppingApp using strcpy(), then print the value of shoppingApp. Make sure to declare enough space for the destination string.
+
+#include <stdio.h>
+#include<conio.h>
+#include<string.h>
+int main()
+{
+    char app[30]="Flipkart";
+    char shoppingapp[30];
+    
+    strcpy(shoppingapp,app);
+    
+    printf("%s",shoppingapp);
+
+    return 0;
+}
+
+
+4.Build a small script that takes the user's full name as input and creates a username by copying only the first 5 characters using strcpy(). Print the generated username.If the name is shorter than 5 characters, use the full name as the username.
+
+#include <stdio.h>
+#include <conio.h>
+#include <string.h>
+int main()
+{
+    char username[50];
+    char username2[50];
+    int i=0;
+    
+   printf("enter your full name");
+   scanf("%s",&username);
+   
+   strcpy(username2,username);
+   
+   while(username[i]!='\0')
+   {
+       i++;
+   }
+   if(i>5)
+   {
+       username2[5]='\0';
+   }
+   printf("Username = %s",username2);
+
+    return 0;
+}

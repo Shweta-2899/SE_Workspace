@@ -1,0 +1,127 @@
+1 Declare a structure named Playlist to store details of a song: title (string), artist (string), and duration in seconds (integer). Initialize one Playlist variable with your favorite song's details and print each field.
+
+#include <stdio.h>
+#include <conio.h>
+struct  Playlist
+{
+    char title[100];
+    char artist[100];
+    int duration;
+}play;
+void main()
+{
+   printf("enter your song name:- ");
+   scanf("%s",&play.title);
+   printf("enter your artist name:- ");
+   scanf("%s",&play.artist);
+   printf("enter your song duration:- ");
+   scanf("%d",&play.duration);
+   
+   printf("Title is %s\n",play.title);
+   printf("Artist is %s\n",play.artist);
+   printf("Duration is %d\n",play.duration);
+
+    getch();
+}
+
+
+
+2.Create a structure called FoodItem to store Zomato-style menu data: itemName (string), price (float), and rating (float). Initialize an array of 3 FoodItem variables with real menu items and display their details using a loop.
+
+#include <stdio.h>
+#include <conio.h>
+
+struct FoodItem
+{
+    char itemName[100];
+    float price;
+    float rating;
+}menu[3];
+void main(){
+    int i;
+    for(i=0;i<3;i++)
+    {
+        printf("enter your food item:- \n");
+        scanf("%s",&menu[i].itemName);
+        printf("enter your food price:- \n");
+        scanf("%f",&menu[i].price);
+        printf("enter your food rating:- \n");
+        scanf("%f",&menu[i].rating);
+    }
+    for(i=0;i<3;i++)
+    {
+        printf("ItemName is %s\n",menu[i].itemName);
+        printf("Item price is %f\n",menu[i].price);
+        printf("Item rating is %f\n",menu[i].rating);
+    }
+    
+    getch();
+}
+
+
+
+3.Define a nested structure called MovieShow for a BookMyShow-style app: Movie (string), Screen (integer), and a nested structure Time with hours and minutes (integers). Create and initialize a MovieShow variable for any movie and print its details in the format 'Movie: X, Screen: Y, Time: HH:MM'.
+
+#include <stdio.h>
+#include <conio.h>
+struct Time
+{
+    int hours;
+    int minutes;
+};
+struct MovieShow
+{
+    char Movie[100];
+    int Screen;
+    struct Time T;
+}show;
+
+void main(){
+    printf("enter your movie name:- \n");
+    scanf("%s",&show.Movie);
+    printf("enter your screen num:- \n");
+    scanf("%d",&show.Screen);
+    printf("enter your movie time in hours:- \n");
+    scanf("%d",&show.T.hours);
+    printf("enter your movie time in minutes:- \n");
+    scanf("%d",&show.T.minutes);
+    
+    printf("Moive: %s, Screen: %d, Time: %d:%d",show.Movie,show.Screen,show.T.hours,show.T.minutes);
+    getch();
+}
+
+
+
+4.Build a structure called InstaProfile with fields: username (string), followers (integer), and a nested structure Bio with fields: description (string) and age (integer). Initialize an InstaProfile variable with your own details and display all fields.
+
+#include <stdio.h>
+#include <conio.h>
+struct Biofields
+{
+    char description[50];
+    int age;
+}Bio;
+struct InstaProfile
+{
+    char username[50];
+    int followers;
+    struct Biofields Bio;
+}Profile;
+
+void main(){
+    
+    printf("enter your username:- ");
+    scanf("%s",&Profile.username);
+    printf("enter your followers:- ");
+    scanf("%d",&Profile.followers);
+    printf("enter your description:- ");
+    scanf("%s",&Profile.Bio.description);
+    printf("enter your age:- ");
+    scanf("%d",&Profile.Bio.age);
+    
+    printf("\nUsername:- %s",Profile.username);
+    printf("\nFollowers:- %d",Profile.followers);
+    printf("\nDescription:- %s",Profile.Bio.description);
+    printf("\nAge:- %d",Profile.Bio.age);
+    getch();
+}

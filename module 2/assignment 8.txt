@@ -1,0 +1,149 @@
+1.Declare a function called getUserInitials that takes a user's full name (like 'Virat Kohli') and returns their initials in uppercase (e.g., 'VK'). Call this function with your favorite cricketer's name and print the result.
+
+#include <stdio.h>
+#include <conio.h>
+#include <string.h>
+int getUserInitials(char username[], char initials[])
+{
+    char temp[50];
+    strcpy(temp, username);
+    strupr(temp);
+    initials[0] = temp[0];
+
+    for(int i = 0; temp[i] != '\0'; i++)
+    {
+        if(temp[i] == ' ')
+        {
+            initials[1] = temp[i+1];
+        }
+    }
+
+    initials[2] = '\0';
+}
+void main()
+{
+    char username[50];
+    char initials[3];
+    printf("Enter your name: ");
+    gets(username);   
+    getUserInitials(username, initials);
+    printf("%s", initials);
+    return 0;
+}
+
+
+2.Create a function addToCart that takes a shopping cart array and a product name, adds the product to the cart, and prints the updated cart. Demonstrate how passing the cart array by reference allows changes to persist outside the function. In languages like JavaScript, arrays are passed by reference. In C/C++, use pointers for reference behavior.
+
+#include <stdio.h>
+#include <conio.h>
+#include <string.h>
+int addToCart(char cart[][10],int *size,char product[])
+{
+    strcpy(cart[*size],product);
+    (*size)++;
+    
+    printf("Inside the function\n");
+    for(int i=0;i<*size;i++)
+    {
+        printf("%s\n",cart[i]);
+    }
+}
+void main(){
+    char cart[10][10]={"Lipgloss","Liptint"};
+    int size=2;
+    char newproduct[10];
+    printf("enter add your product");
+    scanf("%s",newproduct);
+    
+    addToCart(cart,&size,newproduct);
+    printf("Outside the function\n");
+    for(int i=0;i<size;i++)
+    {
+        printf("%s\n",cart[i]);
+    }
+    return 0;
+}
+
+3.Write two functions: increaseFollowersByValue and increaseFollowersByReference. Each should take a followers count and add 1000 to it, but one should use pass-by-value and the other pass-by-reference. Show how the original followers count changes (or doesn't) after calling each function.
+
+#include <stdio.h>
+#include <conio.h>
+int increaseFollowersByValue (int followers)
+{
+    followers=followers+100;
+    printf("Inside function pass-by-value is %d\n",followers);
+}
+void increaseFollowersByReference(int *followers)
+{
+   *followers=*followers+100;
+   printf("Inside function pass-by-reference is %d\n",*followers);
+}
+void main(){
+    int followers=500;
+    printf("followers original value is %d\n",followers);
+    
+    increaseFollowersByValue(followers);
+    printf("after function pass-by-value is %d\n",followers);
+    
+    increaseFollowersByReference(&followers);
+    printf("after function pass-by-reference is %d\n",followers);
+    
+    
+    return 0;
+}
+
+
+
+4.Build a function formatPrice that takes a price in rupees and returns a string formatted like Flipkart's price tag (e.g., '₹1,599'). Use this function to display prices for three different products.
+
+#include <stdio.h>
+#include <conio.h>
+int formatPrice(int price,char formatPrice[])
+{
+    sprintf(formatPrice,"₹%d",price);
+}
+void main()
+{
+    char price1[10],price2[10],price3[10];
+    formatPrice(1999,price1);
+    formatPrice(1699,price2);
+    formatPrice(2599,price3);
+    
+    printf("%s\n",price1);
+    printf("%s\n",price2);
+    printf("%s\n",price3);
+
+   return 0;
+}
+
+5.Refactor an existing function you wrote above to make it reusable for both product names and usernames (for example, a function that capitalizes the first letter of any string.The refactored function should work for any string input, not just a specific use case.
+
+#include <stdio.h>
+#include <conio.h>
+#include <string.h>
+
+void capitalizesfirstletter(char str[])
+{
+    strupr(str);
+    for(int i=1;str[i]!='\0';i++)
+    {
+        str[i]=str[i]+32;
+    }
+}
+
+void main(){
+    char username[10];
+    char productname[10];
+    printf("enter your username");
+    scanf("%s",&username);
+    printf("enter your productname");
+    scanf("%s",&productname);
+    
+    capitalizesfirstletter(username);
+    capitalizesfirstletter(productname);
+    
+    printf("Username is:-%s\n",username);
+    printf("productname is:-%s\n",productname);
+    
+    getch();
+}

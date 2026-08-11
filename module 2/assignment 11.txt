@@ -1,0 +1,88 @@
+1.Declare an integer variable called likes and a pointer variable called ptrLikes; assign likes a value, point ptrLikes to likes, and print both the value and
+the address stored in ptrLikes.
+
+#include <stdio.h>
+#include <conio.h>
+int main()
+{
+    int likes=1000;
+    int *ptrLikes=&likes;
+    printf("value is:-%d\n",likes);
+    printf("pointer value is:-%d\n",*ptrLikes);
+    printf("pointer address is:-%p",ptrLikes);
+    return 0;
+}
+
+
+
+
+2.Write a function swapPlaylistCounts(int *a, int *b) that swaps the number of songs in two Spotify playlists using pointers, then call the function in main and print 
+the swapped values.
+
+#include <stdio.h>
+#include <conio.h>
+
+void swapPlaylistCounts(int *a, int *b)
+{
+  int temp=*a;
+  *a=*b;
+  *b=temp;
+};
+
+void main(){
+    
+    int playlists1=10;
+    int playlists2=20;
+    printf("Before swapping\n");
+    printf("%d\n",playlists1);
+    printf("%d\n",playlists2);
+    
+    swapPlaylistCounts(&playlists1,&playlists2);
+    printf("After swapping\n");
+    printf("%d\n",playlists1);
+    printf("%d\n",playlists2);
+    getch();
+}
+
+
+3.Given an array of 5 order amounts (e.g., Zomato orders), use a pointer to iterate through the array and print each amount along with its memory address.
+<br><br><em><strong>Hint:</strong> Use pointer arithmetic to move to the next element.</em>
+
+#include <stdio.h>
+#include <conio.h>
+int main(){
+    int order[5]={350,198,289,176,456};
+    int *ptr=order;
+    for(int i=0;i<5;i++)
+    {
+        printf("amount=%d:address=%p\n",*ptr,ptr);
+        ptr++;
+    }
+    return 0;
+}
+
+4.Create a function incrementFollowers(int *followers, int n) that increases each follower count in an array (representing Instagram followers 
+for 5 friends) by 100 using pointer arithmetic, then print the updated counts.
+
+#include <stdio.h>
+#include <conio.h>
+ void incrementFollowers(int *followers, int n)
+ {
+     for(int i=0;i<n;i++)
+     {
+        *(followers+i) +=100;
+     }
+ }
+void main(){
+    int followers[5]={300,255,356,400,189};
+    incrementFollowers(followers, 5);
+    for(int i=0;i<5;i++)
+    {
+        printf("%d\n",followers[i]);
+    }
+    getch();
+}
+
+
+5 Draw a simple memory diagram (on paper or using any drawing tool) showing how a pointer references the address of a variable, using the variables from your likes and ptrLikes example; label the variable, pointer, and address.
+
