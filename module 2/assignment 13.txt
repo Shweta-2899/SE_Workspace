@@ -1,0 +1,105 @@
+1.Create a file called playlist.txt and write the names of your top 3 favorite songs from Spotify into it using write mode (w).
+#include <stdio.h>
+#include <conio.h>
+void main()
+{
+    char songs[50];
+    FILE *fp=fopen("playlist.txt","w");
+    if(fp==NULL)
+    {
+        printf("Error file not created\n");
+        return;
+    }
+    printf("Enter your 3 favorite songs\n");
+    for(int i=0;i<3;i++)
+    {
+        printf("Song %d:-",i+1);
+        scanf(" %49[^\n]",songs);
+        fprintf(fp,"%s\n",songs);
+    }
+    fclose(fp);
+    
+
+    getch();
+}
+
+2.Open playlist.txt in read mode (r) and display each song name on a separate line in the console.
+#include <stdio.h>
+#include <conio.h>
+void main(){
+    char songs[50];
+    FILE *fp=fopen("playlist.txt","r");
+    if(fp==NULL)
+    {
+        printf("File not open");
+        return;
+    }
+    printf("Favourite songs list:-\n");
+    for(int i=0;i<3;i++)
+    {
+        fgets(songs,sizeof(songs),fp);
+        printf("%s",songs);
+    }
+    getch();
+}
+
+3.Add two more song names to playlist.txt without deleting the existing ones by opening the file in append mode (a).
+#include <stdio.h>
+int main(){
+    char songs[50];
+    FILE *fp=fopen("playlist.txt","a");
+    if(fp==NULL)
+    {
+        printf("File not open");
+        return 1;
+    }
+    printf("Enter add your fav songs\n");
+    printf("songs 4:-\n");
+    scanf(" %[^\n]",songs);
+    fprintf(fp,"%s\n",songs);
+    
+    printf("songs 5:-\n");
+    scanf(" %[^\n]",songs);
+    fprintf(fp,"%s\n",songs);
+    
+    fclose(fp);
+    printf("Your song is addded\n");
+
+}
+
+4.Write a program that reads all song names from playlist.txt and prints only those that contain the word 'love' (case-insensitive).<br><br><em><strong>Hint:</strong> Use the 'in' keyword or equivalent string method for filtering.</em>
+
+
+#include <stdio.h>
+#include <conio.h>
+#include <string.h>
+
+void main()
+{
+    char song[100];
+    FILE *fp=fopen("playlist.txt","r");
+    if(fp==NULL)
+    {
+        printf("file not found");
+       
+    }
+    
+    while(fscanf(fp," %[^\n]",song)==1)
+    {
+    for(int i=0;song[i]!='\0';i++)
+    {
+        if(   (song[i]=='L'||song[i]=='l')&&
+              (song[i+1]=='O'||song[i+1]=='o')&&
+              (song[i+2]=='V'||song[i+2]=='v')&&
+              (song[i+3]=='E'||song[i+3]=='e')
+        )
+        {
+            printf("%s\n",song);
+        }
+    }
+    }
+    fclose(fp);
+
+   getch();
+}
+

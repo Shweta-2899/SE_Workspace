@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <conio.h>
 #include <string.h>
-int getUserInitials(char username[], char initials[])
+void getUserInitials(char username[], char initials[])
 {
     char temp[50];
     strcpy(temp, username);
@@ -28,7 +28,7 @@ void main()
     gets(username);   
     getUserInitials(username, initials);
     printf("%s", initials);
-    return 0;
+    getch();
 }
 
 
@@ -37,7 +37,7 @@ void main()
 #include <stdio.h>
 #include <conio.h>
 #include <string.h>
-int addToCart(char cart[][10],int *size,char product[])
+void addToCart(char cart[][10],int *size,char product[])
 {
     strcpy(cart[*size],product);
     (*size)++;
@@ -68,7 +68,7 @@ void main(){
 
 #include <stdio.h>
 #include <conio.h>
-int increaseFollowersByValue (int followers)
+void increaseFollowersByValue (int followers)
 {
     followers=followers+100;
     printf("Inside function pass-by-value is %d\n",followers);
@@ -98,7 +98,7 @@ void main(){
 
 #include <stdio.h>
 #include <conio.h>
-int formatPrice(int price,char formatPrice[])
+void formatPrice(int price,char formatPrice[])
 {
     sprintf(formatPrice,"₹%d",price);
 }

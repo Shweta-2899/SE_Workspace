@@ -56,7 +56,7 @@ int main()
 
 #include <stdio.h>
 #include <conio.h>
-void main(){
+int main(){
     int choice;
     int guess=2;
     do{
@@ -79,6 +79,7 @@ void main(){
         }
     }
     while(choice!=guess);
+    return 0;
 }
 
 4.

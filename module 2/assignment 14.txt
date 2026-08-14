@@ -1,0 +1,90 @@
+1.Given the following buggy code meant to calculate the total price of a Zomato order, identify and fix the syntax and runtime errors:<br><br>let items = ["Burger", "Pizza", "Fries"];<br>let prices = [120, 250, 90];<br>let total = 0;<br>for (i = 0; i < items.length; i++) {<br> total =+ prices[i]<br>}<br>console.log("Total price is: " + total);<br><br><em><strong>Hint:</strong> Watch for assignment and loop variable issues.</em>
+
+#include <stdio.h>
+#include <conio.h>
+void main(){
+    char items[3][10]={"Burger", "Pizza", "Fries"};
+    int price[3]={120,250,90};
+    int total=0;
+    
+    for(int i=0;i<3;i++)
+    {
+        total+=price[i];
+    }
+    printf("Total price is %d",total);
+    getch();
+}
+
+2.Rewrite the following code to improve its indentation and add comments explaining each step, so that a beginner can understand what it does:<br><br>function isEven(num){if(num%2==0){return true;}else{return false;}}
+
+#include <stdio.h>
+int isEven(int num)
+{
+    if(num%2==0)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+void main(){
+      printf("%d",isEven(15));
+}
+   
+
+
+3.Write a function formatFollowersCount(count) that takes a number and returns a formatted string like Instagram: 1500 as '1.5K', 1200000 as '1.2M', and numbers below 1000 as-is. Add clear comments and use proper indentation.
+#include <stdio.h>
+
+#include <stdio.h>
+#include <string.h>
+
+void formatFollowersCount(int count, char output[]) {
+    if (count < 1000) {
+        sprintf(output, "%d", count);
+    }
+    else if (count < 1000000) {
+        sprintf(output, "%.1fK", count / 1000.0);
+    }
+    else {
+        sprintf(output, "%.1fM", count / 1000000.0);
+    }
+}
+
+int main() {
+    int count1 = 1500;
+    int count2 = 1200000;
+    int count3 = 850;
+
+    char output[20];
+
+    formatFollowersCount(count1, output);
+    printf("%d = %s\n", count1, output);
+
+    formatFollowersCount(count2, output);
+    printf("%d = %s\n", count2, output);
+
+    formatFollowersCount(count3, output);
+    printf("%d = %s\n", count3, output);
+
+    return 0;
+}
+
+
+4.You are given a piece of JavaScript code that should print all even numbers from 1 to 10, but it doesn't work as expected:<br><br>for (let i = 1; i <= 10; i++) {<br> if (i % 2 = 0) {<br> console.log(i)<br> }<br>}<br><br>Find and fix the error, then rewrite the code with good indentation and at least one comment explaining the logic.
+
+#include <stdio.h>
+
+int main()
+{
+   for(int i=1;i<=10;i++)
+   {
+       if(i%2==0)
+       {
+           printf("%d\n",i);
+       }
+   }
+    return 0;
+}
