@@ -1,0 +1,190 @@
+1.Create a class called Playlist with properties: name (string), createdOn (date), and isPublic (boolean). Instantiate an object of Playlist and print all its properties.
+
+#include <iostream>
+using namespace std;
+
+class Playlist 
+{
+public:
+    string name;
+    string createdOn;
+    bool isPublic;
+
+    Playlist(string n, string date, bool p) 
+    {
+        name = n;
+        createdOn = date;
+        isPublic = p;
+    }
+};
+
+int main() 
+{
+    Playlist playlist("My Fusion", "19-04-2026", true);
+
+    cout << "Name: " << playlist.name << endl;
+    cout << "Created On: " << playlist.createdOn << endl;
+    cout << "Is Public: " << boolalpha << playlist.isPublic << endl;
+
+    return 0;
+}
+
+2.Add a member function to your Playlist class named togglePublic() that switches isPublic between true and false each time it is called. Demonstrate by toggling the value twice and printing the result each time.
+
+#include <iostream>
+using namespace std;
+
+class Playlist 
+{
+public:
+    string name;
+    string createdOn;
+    bool isPublic;
+
+    Playlist(string n, string date, bool p) 
+    {
+        name = n;
+        createdOn = date;
+        isPublic = p;
+    }
+
+    void togglePublic() 
+    {
+        isPublic = !isPublic;
+    }
+};
+
+int main() 
+{
+    Playlist playlist("My Fusion", "19-04-2026", true);
+
+    cout << "Initial: " << playlist.isPublic << endl;
+
+    playlist.togglePublic();
+    cout << "After first toggle: " << playlist.isPublic << endl;
+
+    playlist.togglePublic();
+    cout << "After second toggle: " << playlist.isPublic << endl;
+
+    return 0;
+}
+
+3.Create a class called FoodOrder with properties: orderId (number), restaurantName (string), and isDelivered (boolean). Write a member function markDelivered() that sets isDelivered to true and prints a message. Instantiate FoodOrder and call markDelivered().
+
+#include <iostream>
+using namespace std;
+
+class FoodOrder 
+{
+public:
+    int orderId;
+    string restaurantName;
+    bool isDelivered;
+
+    void markDelivered() 
+    {
+        isDelivered = true;
+        cout << "Order " << orderId << " from "
+             << restaurantName << " has been delivered!" << endl;
+    }
+};
+
+int main() 
+{
+    FoodOrder order;
+
+    order.orderId = 101;
+    order.restaurantName = "XYZ";
+    order.isDelivered = false;
+
+    order.markDelivered();
+
+    return 0;
+}
+
+4.Extend your Playlist class to include a member function addSong(songTitle) that adds the song title to an array property called songs. Demonstrate by adding three song titles and displaying the updated songs list.<br><br><em><strong>Hint:</strong> Initialize songs as an empty array inside the constructor.</em>
+
+#include <iostream>
+using namespace std;
+
+class Playlist 
+{
+public:
+    string songs[100];
+    int count = 0;
+
+    void addSong(string songTitle) 
+    {
+        songs[count] = songTitle;
+        count++;
+    }
+
+    void displaySongs() {
+        for (int i = 0; i < count; i++) 
+        {
+            cout << songs[i] << endl;
+        }
+    }
+};
+
+int main() 
+{
+    Playlist playlist;
+
+    playlist.addSong("Dancing on my own");
+    playlist.addSong("Lovers");
+    playlist.addSong("Dynamite");
+
+    playlist.displaySongs();
+
+    return 0;
+}
+
+5.Refactor your FoodOrder class so that the constructor takes an object as a parameter (with keys orderId, restaurantName, isDelivered) instead of separate arguments. Update your instantiation code to use this new constructor signature.
+
+#include <iostream>
+using namespace std;
+
+class FoodOrderData
+{
+public:
+    int orderId;
+    string restaurantName;
+    bool isDelivered;
+};
+
+class FoodOrder
+{
+public:
+    int orderId;
+    string restaurantName;
+    bool isDelivered;
+
+    FoodOrder(FoodOrderData data)
+    {
+        this->orderId = data.orderId;
+        this->restaurantName = data.restaurantName;
+        this->isDelivered = data.isDelivered;
+    }
+
+    void display()
+    {
+        cout << "OrderId:-" << orderId << endl;
+        cout << "RestaurantName:-" << restaurantName << endl;
+        cout << "IsDelivered:-" << isDelivered << endl;
+    }
+};
+
+int main()
+{
+    FoodOrderData data;
+
+    data.orderId = 194;
+    data.restaurantName = "RPJ";
+    data.isDelivered = true;
+
+    FoodOrder order(data);
+    order.display();
+
+    return 0;
+}
