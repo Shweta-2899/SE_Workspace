@@ -1,0 +1,68 @@
+1. **Git commands:**
+
+   * **Initialize a repository:**
+
+     ```bash
+     git init
+     ```
+   * **Stage all files:**
+
+     ```bash
+     git add .
+     ```
+   * **Commit with a message:**
+
+     ```bash
+     git commit -m "Initial commit"
+     ```
+   * **Push to remote:**
+
+     ```bash
+     git push origin main
+     ```
+   * **Pull latest changes:**
+
+     ```bash
+     git pull origin main
+     ```
+
+2. **Difference between `git fetch` and `git pull` (2 lines):**
+
+   * **`git fetch`** downloads the latest changes from the remote repository but does **not** merge them into your current branch.
+   * **`git pull`** downloads the latest changes **and automatically merges** them into your current branch.
+
+3. **Create a GitHub repository and share the link:**
+
+
+
+     ```
+   https://github.com/Shweta-2899/SE_Workspace
+     ```
+
+4. **Difference between a Fork and a Pull Request (2 lines):**
+
+   * A **Fork** is your own copy of someone else's GitHub repository under your account.
+   * A **Pull Request (PR)** is a request to merge your changes into another branch or repository.
+
+5. **Commands to create a branch, commit, and merge it into `main`:**
+
+   ```bash
+   # Create and switch to a new branch
+   git checkout -b feature-test
+
+   # Make changes to a file, then stage and commit
+   git add .
+   git commit -m "Add changes in feature-test branch"
+
+   # Switch back to the main branch
+   git checkout main
+
+   # Merge the feature branch into main
+   git merge feature-test
+   ```
+
+   *(Optional: Push the updated `main` branch to GitHub.)*
+
+   ```bash
+   git push origin main
+   ```

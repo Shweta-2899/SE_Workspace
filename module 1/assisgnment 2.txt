@@ -1,0 +1,24 @@
+1. **Three main layers of software architecture:**
+
+   * **Presentation Layer (UI):** Displays information and accepts input from the user.
+   * **Business Logic Layer:** Processes data and performs the application's main functions.
+   * **Data Layer:** Stores, retrieves, and manages data in the database.
+
+2. **Client and Server (in simple words):**
+
+   * **Client:** A device or application that requests services or data from another computer.
+   * **Server:** A computer or program that provides services or data to clients.
+   * **Example:** When you open YouTube on your phone, your phone is the **client**, and YouTube's computers are the **server**.
+
+3. **Two differences between desktop apps, web apps, and mobile apps:**
+
+| Desktop Apps                       | Web Apps                                | Mobile Apps                                 |
+| ---------------------------------- | --------------------------------------- | ------------------------------------------- |
+| Installed on a computer.           | Run in a web browser.                   | Installed on a smartphone or tablet.        |
+| Usually work without the internet. | Usually require an internet connection. | Can use phone features like GPS and camera. |
+
+4. **Three databases and their types:**
+
+   * **MySQL** – **SQL**
+   * **PostgreSQL** – **SQL**
+   * **MongoDB** – **NoSQL**

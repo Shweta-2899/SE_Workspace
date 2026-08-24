@@ -1,0 +1,188 @@
+1. Create a base class called SocialMediaUser with properties username and followers, and a method displayProfile() that prints the username and follower count.
+
+#include <iostream>
+using namespace std;
+
+class SocialMediaUser 
+{
+public:
+    string username;
+    int followers;
+
+    SocialMediaUser(string name, int count) 
+    {
+        username = name;
+        followers = count;
+    }
+
+    void displayProfile() 
+    {
+        cout << "Username: " << username << endl;
+        cout << "Followers: " << followers << endl;
+    }
+};
+
+int main() 
+{
+    SocialMediaUser user("Siya", 300);
+    user.displayProfile();
+
+    return 0;
+}
+
+2. Build a YouTuber class that inherits from SocialMediaUser and adds a property channelName and a method uploadVideo(title) that prints 'Video [title] uploaded to [channelName]'.
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+class SocialMediaUser 
+{
+public:
+    string username;
+
+    SocialMediaUser() 
+    {
+        username = "name";
+    }
+};
+
+class YouTuber : public SocialMediaUser 
+{
+public:
+    string channelName;
+
+    YouTuber(string username, string channel) 
+    {
+        this->username = username;
+        channelName = channel;
+    }
+
+    void uploadVideo(string title) 
+    {
+        cout << "Video " << title<< " uploaded to " << channelName << endl;
+    }
+};
+
+int main() 
+{
+    YouTuber youtuber("Nana Janashia", "TechWorld with Nana");
+
+    youtuber.uploadVideo("Complete DevOps Roadmap");
+
+    return 0;
+}
+
+3. Create a Podcaster class that also inherits from SocialMediaUser and adds a property podcastName and a method publishEpisode(episodeTitle) that prints 'Episode [episodeTitle] published on [podcastName]'.
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+class SocialMediaUser 
+{
+public:
+    string username;
+
+    SocialMediaUser() 
+    {
+        username = "name";
+    }
+};
+
+class Podcaster : public SocialMediaUser 
+{
+public:
+    string podcastName;
+
+    Podcaster(string username, string podcast) 
+    {
+        this->username = username;
+        podcastName = podcast;
+    }
+
+    void publishEpisode(string episodeTitle) 
+    {
+        cout << "Episode " << episodeTitle<< " published on " << podcastName << endl;
+    }
+};
+
+int main() 
+{
+    Podcaster p("Raj Shamani", "Raj Shamani podcast");
+
+    p.publishEpisode("ShradhaKD on Indian Education System");
+
+    return 0;
+}
+
+4.Demonstrate multilevel inheritance by creating a class GamingYouTuber that inherits from YouTuber and adds a method streamGame(gameName) which prints '[username] is now streaming [gameName] on [channelName]'.
+
+#include <iostream>
+using namespace std;
+
+class YouTuber 
+{
+public:
+    string username;
+    string channelName;
+};
+
+class GamingYouTuber : public YouTuber 
+{
+public:
+    void streamGame(string gameName) 
+    {
+        cout << username << " is now streaming "<< gameName << " on " << channelName << endl;
+    }
+};
+
+int main() 
+{
+    GamingYouTuber g;
+
+    g.username = "Jonathan";
+    g.channelName = "Jonathan Gaming";
+    g.streamGame("BGMI");
+
+    return 0;
+}
+ 
+5. Implement hierarchical inheritance by creating an InstagramInfluencer class that inherits from SocialMediaUser and adds a method postStory(storyTitle) which prints '[username] posted a new story: [storyTitle]'.<br><br><em><strong>Hint:</strong> Think about how SocialMediaUser is the parent for YouTuber, Podcaster, and InstagramInfluencer.</em>
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+class SocialMediaUser 
+{
+public:
+    string username;
+
+    SocialMediaUser(string username) 
+    {
+        this->username = username;
+    }
+};
+
+class InstagramInfluencer : public SocialMediaUser 
+{
+public:
+    InstagramInfluencer(string username) : SocialMediaUser(username) 
+    {
+        this->username = username;
+    }
+
+    void postStory(string storyTitle) 
+    {
+        cout << this->username << " posted a new story: " << storyTitle << endl;
+    }
+};
+
+int main() 
+{
+    InstagramInfluencer user("Siya");
+    user.postStory("A Day at Universal Studios!");
+
+    return 0;
+}

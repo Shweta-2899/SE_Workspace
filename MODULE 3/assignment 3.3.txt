@@ -1,0 +1,160 @@
+1. Create a class called Playlist with a default constructor that sets the playlist name to 'My Favourites' and prints a welcome message when an object is created.
+
+#include <iostream>
+using namespace std;
+
+class Playlist 
+{
+public:
+    string playlistName;
+
+    Playlist() 
+    {
+        playlistName = "My Favourites";
+        cout << "Welcome to your playlist!" << endl;
+    }
+};
+
+int main() 
+{
+    Playlist myPlaylist;
+    return 0;
+}
+
+2.Build a class Product for a Flipkart-style app with a parameterized constructor that takes productName, price, and rating as arguments and displays all details using a displayInfo() method.
+
+#include <iostream>
+using namespace std;
+
+class Product 
+{
+    string productName;
+    float price;
+    float rating;
+
+public:
+    Product(string name, float p, float r) 
+    {
+        productName = name;
+        price = p;
+        rating = r;
+    }
+
+    void displayInfo() 
+    {
+        cout << "Product Name: " << productName << endl;
+        cout << "Price: " << price << endl;
+        cout << "Rating: " << rating << "/5" << endl;
+    }
+};
+
+int main() 
+{
+    Product p1("Product A", 4500.00f, 4.5f);
+    p1.displayInfo();
+
+    return 0;
+}
+
+3. Create a class Movie with a parameterized constructor and then use a copy constructor to duplicate a Movie object. Print both the original and copied movie details to show they are identical.
+
+#include <iostream>
+using namespace std;
+
+class Movie 
+{
+    string title;
+    string director;
+    int year;
+
+public:
+    Movie(string t, string d, int y) 
+    {
+        title = t;
+        director = d;
+        year = y;
+    }
+
+    Movie(const Movie &m) 
+    {
+        title = m.title;
+        director = m.director;
+        year = m.year;
+    }
+
+    void display() 
+    {
+        cout << "Title: " << title << endl;
+        cout << "Director: " << director << endl;
+        cout << "Year: " << year << endl;
+    }
+};
+
+int main() 
+{
+    Movie original("Avengers Endgame", "Anthony Russo", 2019);
+    Movie copied(original);
+
+    cout << "Original Movie:" << endl;
+    original.display();
+
+    cout << "\nCopied Movie:" << endl;
+    copied.display();
+
+    return 0;
+}
+
+4.Simulate a BookMyShow ticket booking by creating a Ticket class that prints 'Saving your ticket...' in its destructor. Create and delete a Ticket object to demonstrate the destructor lifecycle.<br><br><em><strong>Hint:</strong> Use the __del__ method (Python) or ~Ticket() (C++) to define the destructor.</em>
+
+#include <iostream>
+using namespace std;
+
+class Ticket 
+{
+public:
+    Ticket() 
+    {
+        cout << "Ticket booked!" << endl;
+    }
+
+    ~Ticket() 
+    {
+        cout << "Saving your ticket..." << endl;
+    }
+};
+
+int main() 
+{
+   Ticket ticket;
+
+    return 0;
+}
+
+5.Modify your Playlist class so that it auto-saves the playlist name to a file called autosave.txt when the object is destroyed, simulating an auto-save feature like Spotify.<br><br><em><strong>Hint:</strong> Write the file-saving code inside the destructor.</em>
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Playlist 
+{
+public:
+    string name;
+
+    Playlist(string n) 
+    {
+        name = n;
+    }
+
+    ~Playlist() 
+    {
+        cout << "Auto-saving playlist: " << name << endl;
+    }
+};
+
+int main() 
+{
+    Playlist p("My Favorite Songs");
+
+    return 0;
+}
