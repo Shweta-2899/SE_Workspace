@@ -1,0 +1,300 @@
+1.
+Create a Content class with properties: title, platform, views, and status. Write a method to display all details of a Content object.
+2.
+Build a console menu that lets users add new content ideas (title, platform, views, status) and save each entry to a text file named content_list.txt.<br><br><em><strong>Hint:</strong> Use file handling to append each new content item to the file.</em>
+3.
+Implement a function to read all content items from content_list.txt and display them in a numbered list, showing title and platform for each.
+4.
+Add an option in your console app to let users update the status of any content idea by selecting its number from the displayed list and saving the change back to the file.<br><br><em><strong>Hint:</strong> You will need to read all items, modify the selected one, and overwrite the file.</em>
+5.
+Add a feature to delete a content item by its number from the list, update the file accordingly, and display the updated list to confirm deletion.
+
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
+class Content
+{
+public:
+    string title;
+    string platform;
+    int views;
+    string status;
+
+    void displayDetails()
+    {
+        cout << "Title: " << title << endl;
+        cout << "Platform: " << platform << endl;
+        cout << "Views: " << views << endl;
+        cout << "Status: " << status << endl;
+    }
+};
+
+// Add content
+void addContent()
+{
+    Content c;
+
+    cin.ignore();
+
+    cout << "Enter Title: ";
+    getline(cin, c.title);
+
+    cout << "Enter Platform: ";
+    getline(cin, c.platform);
+
+    cout << "Enter Views: ";
+    cin >> c.views;
+
+    cin.ignore();
+
+    cout << "Enter Status: ";
+    getline(cin, c.status);
+
+    ofstream file("content_list.txt", ios::app);
+
+    file << c.title << endl;
+    file << c.platform << endl;
+    file << c.views << endl;
+    file << c.status << endl;
+
+    file.close();
+
+    cout << "\nContent added successfully!\n";
+}
+
+// Display content
+void displayContent()
+{
+    ifstream file("content_list.txt");
+
+    string title;
+    string platform;
+    string views;
+    string status;
+
+    int count = 1;
+
+    cout << "\n========== Content List ==========\n";
+
+    while (getline(file, title))
+    {
+        getline(file, platform);
+        getline(file, views);
+        getline(file, status);
+
+        cout << count << ". "
+             << title << " - "
+             << platform << endl;
+
+        count++;
+    }
+
+    file.close();
+
+    if (count == 1)
+    {
+        cout << "No content found.\n";
+    }
+}
+
+// Update status
+void updateStatus()
+{
+    Content c[100];
+    int count = 0;
+
+    ifstream file("content_list.txt");
+
+    while (getline(file, c[count].title))
+    {
+        string views;
+
+        getline(file, c[count].platform);
+        getline(file, views);
+        getline(file, c[count].status);
+
+        c[count].views = stoi(views);
+
+        count++;
+    }
+
+    file.close();
+
+    if (count == 0)
+    {
+        cout << "No content found.\n";
+        return;
+    }
+
+    cout << "\nContent List:\n";
+
+    for (int i = 0; i < count; i++)
+    {
+        cout << i + 1 << ". "
+             << c[i].title << " - "
+             << c[i].platform << endl;
+    }
+
+    int number;
+
+    cout << "\nEnter content number to update: ";
+    cin >> number;
+
+    if (number < 1 || number > count)
+    {
+        cout << "Invalid number!\n";
+        return;
+    }
+
+    cin.ignore();
+
+    cout << "Enter new status: ";
+    getline(cin, c[number - 1].status);
+
+    // Rewrite the file
+    ofstream outFile("content_list.txt");
+
+    for (int i = 0; i < count; i++)
+    {
+        outFile << c[i].title << endl;
+        outFile << c[i].platform << endl;
+        outFile << c[i].views << endl;
+        outFile << c[i].status << endl;
+    }
+
+    outFile.close();
+
+    cout << "Status updated successfully!\n";
+}
+
+// Delete content
+void deleteContent()
+{
+    Content c[100];
+    int count = 0;
+
+    ifstream file("content_list.txt");
+
+    while (getline(file, c[count].title))
+    {
+        string views;
+
+        getline(file, c[count].platform);
+        getline(file, views);
+        getline(file, c[count].status);
+
+        c[count].views = stoi(views);
+
+        count++;
+    }
+
+    file.close();
+
+    if (count == 0)
+    {
+        cout << "No content found.\n";
+        return;
+    }
+
+    cout << "\nContent List:\n";
+
+    for (int i = 0; i < count; i++)
+    {
+        cout << i + 1 << ". "
+             << c[i].title << " - "
+             << c[i].platform << endl;
+    }
+
+    int number;
+
+    cout << "\nEnter content number to delete: ";
+    cin >> number;
+
+    if (number < 1 || number > count)
+    {
+        cout << "Invalid number!\n";
+        return;
+    }
+
+    // Move items up
+    for (int i = number - 1; i < count - 1; i++)
+    {
+        c[i] = c[i + 1];
+    }
+
+    count--;
+
+    // Rewrite the file
+    ofstream outFile("content_list.txt");
+
+    for (int i = 0; i < count; i++)
+    {
+        outFile << c[i].title << endl;
+        outFile << c[i].platform << endl;
+        outFile << c[i].views << endl;
+        outFile << c[i].status << endl;
+    }
+
+    outFile.close();
+
+    cout << "\nContent deleted successfully!\n";
+
+    cout << "\nUpdated Content List:\n";
+
+    for (int i = 0; i < count; i++)
+    {
+        cout << i + 1 << ". "
+             << c[i].title << " - "
+             << c[i].platform << endl;
+    }
+}
+
+int main()
+{
+    int choice;
+
+    do
+    {
+        cout << "\n========== Content Manager ==========\n";
+        cout << "1. Add Content\n";
+        cout << "2. Display Content\n";
+        cout << "3. Update Status\n";
+        cout << "4. Delete Content\n";
+        cout << "5. Exit\n";
+        cout << "=====================================\n";
+
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice)
+        {
+        case 1:
+            addContent();
+            break;
+
+        case 2:
+            displayContent();
+            break;
+
+        case 3:
+            updateStatus();
+            break;
+
+        case 4:
+            deleteContent();
+            break;
+
+        case 5:
+            cout << "Program ended.\n";
+            break;
+
+        default:
+            cout << "Invalid choice!\n";
+        }
+
+    } while (choice != 5);
+
+    return 0;
+}
