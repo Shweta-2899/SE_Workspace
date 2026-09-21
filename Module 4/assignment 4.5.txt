@@ -1,0 +1,235 @@
+1. Create an HTML file for a Flipkart-style product card and apply inline CSS to set a unique background color and font size for the product title only.
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Flipkart Product Card</title>
+</head>
+<body>
+	<article>
+		<img src="https://via.placeholder.com/240x240?text=Smartphone" alt="Smartphone product image">
+		<h2 style="background-color: #e8f5e9; font-size: 24px;">iPhone 18</h2>
+		<p>6.5-inch display, 128 GB storage, and a long-lasting battery.</p>
+		<strong>₹1,79,000</strong>
+		<button type="button">Add to Cart</button>
+	</article>
+</body>
+</html>
+
+2.Build a Myntra-like offer banner using internal CSS (inside a <style> tag) to set a custom font family, text color, and background color for the banner text.
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Myntra Offer Banner</title>
+	<style>
+		.offer-banner {
+			background-color: #d81b60;
+			color: #ffffff;
+			font-family: Arial, sans-serif;
+			padding: 24px;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<div class="offer-banner">
+		<h1>FLAT 50% OFF</h1>
+		<p>On your favourite fashion styles. Shop now!</p>
+	</div>
+</body>
+</html>
+
+3.Create a separate CSS file named styles.css and link it to your HTML file. Use external CSS to style all <button> elements with a Zomato-inspired color, rounded corners, and a hover effect that changes the background color.
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Zomato Button</title>
+	<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+	<button type="button">Order Now</button>
+</body>
+</html>
+
+4.Write CSS selectors to style all elements with the class 'playlist-item' (for a Spotify playlist page) to have a dark background and white text. Then, add a rule to highlight the currently playing song with a different color using a unique id selector.
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Spotify Playlist</title>
+	<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+	<main>
+		<h1>My Playlist</h1>
+		<div class="playlist-item">SEVEN - JungKook</div>
+		<div class="playlist-item" id="currently-playing">Dandelions - Ruth B.</div>
+		<div class="playlist-item">Levitating - Dua Lipa</div>
+	</main>
+</body>
+</html>
+
+5.Implement a simple light/dark mode switch for a BookMyShow movie detail page using internal CSS and a toggle button. When the button is clicked, switch between light and dark color themes for the page.<br><br><em><strong>Hint:</strong> Use JavaScript to add or remove a 'dark-mode' class on the <body> and define the color themes in CSS.</em>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>BookMyShow - Movie Details</title>
+	<style>
+		:root {
+			--page-bg: #f4f4f5;
+			--surface: #ffffff;
+			--text: #202124;
+			--muted-text: #666666;
+			--accent: #e51b23;
+			--border: #dddddd;
+		}
+
+		body.dark-mode {
+			--page-bg: #171717;
+			--surface: #252525;
+			--text: #f5f5f5;
+			--muted-text: #bdbdbd;
+			--accent: #ff5b61;
+			--border: #444444;
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			margin: 0;
+			background-color: var(--page-bg);
+			color: var(--text);
+			font-family: Arial, sans-serif;
+			transition: background-color 0.2s ease, color 0.2s ease;
+		}
+
+		header {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 18px 8%;
+			background-color: var(--surface);
+			border-bottom: 1px solid var(--border);
+		}
+
+		header h1 {
+			margin: 0;
+			color: var(--accent);
+			font-size: 1.6rem;
+		}
+
+		button {
+			padding: 10px 16px;
+			border: 0;
+			border-radius: 4px;
+			background-color: var(--accent);
+			color: #ffffff;
+			cursor: pointer;
+			font-size: 0.95rem;
+		}
+
+		main {
+			max-width: 900px;
+			margin: 40px auto;
+			padding: 0 24px;
+		}
+
+		.movie-card {
+			display: grid;
+			grid-template-columns: 220px 1fr;
+			gap: 28px;
+			padding: 24px;
+			background-color: var(--surface);
+			border: 1px solid var(--border);
+			border-radius: 8px;
+		}
+
+		.poster {
+			height: 330px;
+			overflow: hidden;
+			border-radius: 6px;
+			background-color: #333333;
+		}
+
+		.poster img {
+			display: block;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+
+		.movie-card h2 {
+			margin-top: 0;
+			font-size: 2rem;
+		}
+
+		.details {
+			color: var(--muted-text);
+			line-height: 1.6;
+		}
+
+		.book-button {
+			margin-top: 16px;
+		}
+
+		@media (max-width: 600px) {
+			header {
+				padding: 16px 5%;
+			}
+
+			.movie-card {
+				grid-template-columns: 1fr;
+			}
+
+			.poster {
+				height: 360px;
+			}
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<h1>BookMyShow</h1>
+		<button id="theme-toggle" type="button" aria-pressed="false">Dark Mode</button>
+	</header>
+
+	<main>
+		<article class="movie-card">
+			<div class="poster">
+				<img src="https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg" alt="Avengers: Endgame movie poster">
+			</div>
+			<div>
+				<h2>Avengers: Endgame</h2>
+				<p class="details">Action | Adventure | 3h 5m</p>
+				<p>After the devastating events caused by Thanos, the Avengers unite for one final mission to restore hope and save the universe.</p>
+				<button class="book-button" type="button">Book Tickets</button>
+			</div>
+		</article>
+	</main>
+
+	<script>
+		const themeToggle = document.getElementById('theme-toggle');
+
+		themeToggle.addEventListener('click', () => {
+			const darkModeEnabled = document.body.classList.toggle('dark-mode');
+			themeToggle.textContent = darkModeEnabled ? 'Light Mode' : 'Dark Mode';
+			themeToggle.setAttribute('aria-pressed', darkModeEnabled);
+		});
+	</script>
+</body>
+</html>

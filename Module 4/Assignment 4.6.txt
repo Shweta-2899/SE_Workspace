@@ -1,0 +1,402 @@
+1.Create an HTML file that displays a Zomato-style restaurant card with a restaurant name, cuisine type, and rating. Use CSS to add margin, padding, and a visible border to the card so that each section is clearly separated.
+5.Refactor your CSS for any one of the above tasks to reduce repeated margin and padding values by using a reusable CSS class. Explain in a comment how this improves maintainability.
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Zomato-Style Restaurant Card</title>
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			margin: 0;
+			padding: 40px 20px;
+			background-color: #f7f7f7;
+			color: #2d2d2d;
+			font-family: Arial, sans-serif;
+		}
+
+		.restaurant-card {
+			max-width: 420px;
+			margin: 0 auto;
+			padding: 24px;
+			background-color: #ffffff;
+			border: 2px solid #e23744;
+			border-radius: 10px;
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+		}
+
+		/*
+		   Keeping the shared padding and border in one class avoids duplicated
+		   values, so one future change updates all three sections consistently.
+		*/
+		.section-spacing {
+			padding: 16px 0;
+			border-bottom: 1px solid #dddddd;
+		}
+
+		.restaurant-header {
+			padding-top: 0;
+		}
+
+		.restaurant-rating {
+			padding-bottom: 0;
+			border-bottom: 0;
+		}
+
+		h1 {
+			margin: 0;
+			color: #e23744;
+			font-size: 1.8rem;
+		}
+
+		p {
+			margin: 0;
+			line-height: 1.5;
+		}
+
+		.label {
+			margin-bottom: 4px;
+			color: #777777;
+			font-size: 0.8rem;
+			font-weight: bold;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+		}
+
+		.rating {
+			display: inline-block;
+			margin-top: 4px;
+			padding: 6px 10px;
+			border-radius: 5px;
+			background-color: #267e3e;
+			color: #ffffff;
+			font-weight: bold;
+		}
+	</style>
+</head>
+<body>
+	<article class="restaurant-card">
+		<header class="restaurant-header section-spacing">
+			<p class="label">Restaurant</p>
+			<h1>Cuore</h1>
+		</header>
+
+		<section class="restaurant-cuisine section-spacing">
+			<p class="label">Cuisine</p>
+			<p>Authentic Italian cuisine</p>
+		</section>
+
+		<footer class="restaurant-rating section-spacing">
+			<p class="label">Customer Rating</p>
+			<p class="rating">4.6 ★</p>
+		</footer>
+	</article>
+</body>
+</html>
+
+2.Design a Flipkart-style product tile with an image, product name, and price. Use different display properties (block, inline-block, none) to control the layout of the product name and price, and hide the price when a specific CSS class is added.<br><br><em><strong>Hint:</strong> Try toggling the class in your HTML to see the effect.</em>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Flipkart-Style Product Tile</title>
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			margin: 0;
+			padding: 40px 20px;
+			background-color: #f1f3f6;
+			color: #212121;
+			font-family: Arial, sans-serif;
+		}
+
+		.product-tile {
+			width: min(100%, 280px);
+			margin: 0 auto;
+			padding: 18px;
+			background-color: #ffffff;
+			border: 1px solid #dddddd;
+			border-radius: 4px;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+		}
+
+		.product-image {
+			display: block;
+			width: 100%;
+			height: 230px;
+			object-fit: contain;
+			margin-bottom: 16px;
+		}
+
+		.product-name {
+			display: block;
+			margin-bottom: 10px;
+			color: #212121;
+			font-size: 1.1rem;
+			font-weight: bold;
+		}
+
+		.price {
+			display: inline-block;
+			padding: 7px 10px;
+			background-color: #2874f0;
+			color: #ffffff;
+			font-size: 1rem;
+			font-weight: bold;
+		}
+
+		.hide-price .price {
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<article class="product-tile">
+		<img
+			class="product-image"
+			src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&amp;fit=crop&amp;w=600&amp;q=80"
+			alt="iPhone 18"
+		>
+		<span class="product-name">iPhone 18</span>
+		<span class="price">₹1,79,000</span>
+	</article>
+</body>
+</html>
+
+3.Build a fixed-position WhatsApp chat notification badge at the bottom right corner of the screen. Use position: fixed and appropriate margin and padding to ensure it stays visible even when scrolling.
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>WhatsApp Chat Notification</title>
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			min-height: 160vh;
+			margin: 0;
+			padding: 48px 24px;
+			background-color: #f4f7f5;
+			color: #1f2933;
+			font-family: Arial, sans-serif;
+		}
+
+		main {
+			max-width: 760px;
+			margin: 0 auto;
+		}
+
+		h1 {
+			color: #128c7e;
+		}
+
+		p {
+			max-width: 620px;
+			line-height: 1.7;
+		}
+
+		.chat-badge {
+			position: fixed;
+			right: 24px;
+			bottom: 24px;
+			z-index: 10;
+			display: inline-flex;
+			align-items: center;
+			gap: 10px;
+			margin: 0;
+			padding: 13px 18px;
+			border-radius: 999px;
+			background-color: #25d366;
+			color: #ffffff;
+			box-shadow: 0 5px 16px rgba(0, 0, 0, 0.22);
+			font-weight: bold;
+			text-decoration: none;
+		}
+
+		.chat-badge:hover {
+			background-color: #1ebe5d;
+		}
+
+		.whatsapp-icon {
+			display: grid;
+			width: 28px;
+			height: 28px;
+			place-items: center;
+			border: 2px solid #ffffff;
+			border-radius: 50%;
+			font-size: 0.9rem;
+		}
+
+		.notification-count {
+			position: absolute;
+			top: -8px;
+			right: -8px;
+			display: grid;
+			width: 24px;
+			height: 24px;
+			place-items: center;
+			border: 2px solid #ffffff;
+			border-radius: 50%;
+			background-color: #e53935;
+			color: #ffffff;
+			font-size: 0.75rem;
+		}
+
+		@media (max-width: 480px) {
+			.chat-badge {
+				right: 16px;
+				bottom: 16px;
+				padding: 11px 14px;
+			}
+		}
+	</style>
+</head>
+<body>
+	<main>
+		<h1>Stay Connected</h1>
+		<p>Scroll down the page and the WhatsApp chat notification will remain visible in the bottom-right corner.</p>
+		<p>Our support team is available to answer questions, share updates, and help you get the most from your experience.</p>
+	</main>
+
+	<a class="chat-badge" href="https://wa.me/" target="_blank" rel="noopener noreferrer" aria-label="Open WhatsApp chat, 3 unread messages">
+		<span class="whatsapp-icon" aria-hidden="true">W</span>
+		<span>Chat with us</span>
+		<span class="notification-count" aria-hidden="true">3</span>
+	</a>
+</body>
+</html>
+
+4.Create a BookMyShow movie poster grid where each poster uses position: relative. Add a 'New' badge to the top-left corner of one poster using position: absolute, so it overlays the image correctly.<br><br><em><strong>Hint:</strong> Use top and left properties with position: absolute inside a relatively positioned parent.</em>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>BookMyShow Movie Posters</title>
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			margin: 0;
+			padding: 32px 20px;
+			background-color: #f5f5f5;
+			color: #333333;
+			font-family: Arial, sans-serif;
+		}
+
+		main {
+			max-width: 1100px;
+			margin: 0 auto;
+		}
+
+		h1 {
+			margin-bottom: 28px;
+			color: #333333;
+		}
+
+		.poster-grid {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			gap: 24px;
+		}
+
+		.movie-card {
+			position: relative;
+			overflow: hidden;
+			background-color: #ffffff;
+			border-radius: 8px;
+			box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+		}
+
+		.movie-card img {
+			display: block;
+			width: 100%;
+			aspect-ratio: 2 / 3;
+			object-fit: cover;
+		}
+
+		.movie-card h2 {
+			margin: 0;
+			padding: 14px;
+			font-size: 1.05rem;
+		}
+
+		.new-badge {
+			position: absolute;
+			top: 12px;
+			left: 12px;
+			padding: 7px 11px;
+			border-radius: 4px;
+			background-color: #e51b23;
+			color: #ffffff;
+			font-size: 0.8rem;
+			font-weight: bold;
+			text-transform: uppercase;
+		}
+
+		@media (max-width: 800px) {
+			.poster-grid {
+				grid-template-columns: repeat(2, 1fr);
+			}
+		}
+
+		@media (max-width: 480px) {
+			body {
+				padding: 24px 14px;
+			}
+
+			.poster-grid {
+				gap: 14px;
+			}
+		}
+	</style>
+</head>
+<body>
+	<main>
+		<h1>Recommended Movies</h1>
+		<section class="poster-grid" aria-label="BookMyShow movie listings">
+			<article class="movie-card">
+				<span class="new-badge">New</span>
+				<img src="https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg" alt="Avengers: Endgame poster">
+				<h2>Avengers: Endgame</h2>
+			</article>
+
+			<article class="movie-card">
+				<img src="https://image.tmdb.org/t/p/w500/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg" alt="The Shawshank Redemption poster">
+				<h2>The Shawshank Redemption</h2>
+			</article>
+
+			<article class="movie-card">
+				<img src="https://image.tmdb.org/t/p/w500/8UlWHLMpgZm9bx6QYh0NFoq67zd.jpg" alt="Wonder Woman 1984 poster">
+				<h2>Wonder Woman 1984</h2>
+			</article>
+
+			<article class="movie-card">
+				<img src="https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg" alt="Parasite poster">
+				<h2>Parasite</h2>
+			</article>
+		</section>
+	</main>
+</body>
+</html>
+
+
+
