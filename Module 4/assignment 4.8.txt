@@ -1,0 +1,144 @@
+1.
+Create a Flipkart-style product card in HTML and CSS, then use a meta viewport tag to ensure it scales correctly on mobile devices.
+2.
+Add media queries to your product card so that when the screen width is 600px or less, the card layout switches from horizontal (image and details side by side) to vertical (image on top, details below).
+3.
+Set up three breakpoints (600px, 900px, 1200px) for your product card and change the card's font size and padding at each breakpoint to improve readability on different devices.<br><br><em><strong>Hint:</strong> Use @media only screen and (max-width: ...) in your CSS for each breakpoint.</em>
+4.
+Test your responsive product card by resizing your browser window and taking screenshots at mobile, tablet, and desktop widths; submit the screenshots along with a short note on what changes at each size.
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Responsive Flipkart Product Card</title>
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		:root {
+			font-size: 16px;
+		}
+
+		body {
+			margin: 0;
+			min-height: 100vh;
+			padding: 40px 20px;
+			background: #f1f3f6;
+			color: #212121;
+			font-family: Arial, sans-serif;
+		}
+
+		.page-title {
+			max-width: 900px;
+			margin: 0 auto 24px;
+			color: #2874f0;
+			font-size: 1.8rem;
+		}
+
+		.product-card {
+			display: flex;
+			max-width: 900px;
+			margin: 0 auto;
+			padding: 24px;
+			gap: 28px;
+			background: #fff;
+			border: 1px solid #ddd;
+			border-radius: 4px;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+			font-size: 1rem;
+		}
+
+		.product-card__image {
+			flex: 0 0 42%;
+			width: 100%;
+			max-height: 300px;
+			object-fit: cover;
+		}
+
+		.product-card__details {
+			flex: 1;
+		}
+
+		.product-card__title {
+			margin: 0 0 12px;
+			font-size: 1.5em;
+		}
+
+		.product-card__description {
+			margin: 0 0 18px;
+			line-height: 1.5;
+		}
+
+		.product-card__price {
+			margin: 0 0 20px;
+			color: #388e3c;
+			font-size: 1.4em;
+			font-weight: bold;
+		}
+
+		.product-card__button {
+			padding: 12px 22px;
+			border: 0;
+			border-radius: 2px;
+			background: #ff9f00;
+			color: #fff;
+			font: inherit;
+			font-weight: bold;
+			cursor: pointer;
+		}
+
+		@media only screen and (max-width: 1200px) {
+			.product-card {
+				padding: 22px;
+				font-size: 0.98rem;
+			}
+		}
+
+		@media only screen and (max-width: 900px) {
+			.product-card {
+				padding: 18px;
+				gap: 20px;
+				font-size: 0.95rem;
+			}
+		}
+
+		@media only screen and (max-width: 600px) {
+			body {
+				padding: 24px 14px;
+			}
+
+			.product-card {
+				flex-direction: column;
+				padding: 14px;
+				gap: 16px;
+				font-size: 0.9rem;
+			}
+
+			.product-card__image {
+				flex-basis: auto;
+				max-height: none;
+			}
+		}
+	</style>
+</head>
+<body>
+	<main>
+		<h1 class="page-title">Featured Product</h1>
+
+		<article class="product-card">
+			<img class="product-card__image"
+				src="https://media-ik.croma.com/Croma%20Assets/Communication/Mobiles/Images/324772_0_Hv_tBHIaD.png?updatedAt=1789033991356"
+				alt="iPhone 18 product image">
+			<div class="product-card__details">
+				<h2 class="product-card__title">iPhone 18</h2>
+				<p class="product-card__description">Enjoy a bright display, dependable performance, and all-day battery life in a slim, modern design.</p>
+				<p class="product-card__price">₹1,79,000</p>
+				<button class="product-card__button" type="button">Add to Cart</button>
+			</div>
+		</article>
+	</main>
+</body>
+</html>
