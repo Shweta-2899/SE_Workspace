@@ -1,0 +1,441 @@
+1.Create a Bootstrap layout for a Flipkart-style product card page: use a container with a row, and display three product cards side by side using the grid system's columns.
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Flipkart Product Cards</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+		body {
+			background-color: #f1f3f6;
+		}
+
+		.product-card {
+			height: 100%;
+			border: 1px solid #e0e0e0;
+			border-radius: 4px;
+		}
+
+		.product-card img {
+			height: 230px;
+			object-fit: contain;
+			padding: 16px;
+		}
+
+		.product-card .card-title {
+			color: #212121;
+		}
+
+		.product-price {
+			color: #388e3c;
+			font-size: 1.25rem;
+			font-weight: 700;
+		}
+
+		.buy-button {
+			background-color: #ff9f00;
+			border-color: #ff9f00;
+		}
+
+		.buy-button:hover,
+		.buy-button:focus {
+			background-color: #e68f00;
+			border-color: #e68f00;
+		}
+	</style>
+</head>
+<body>
+	<main class="container py-5">
+		<h1 class="mb-4 text-primary">Featured Products</h1>
+
+		<div class="row g-4">
+			<div class="col-12 col-md-6 col-lg-4">
+				<article class="card product-card shadow-sm">
+					<img src="https://media-ik.croma.com/Croma%20Assets/Communication/Mobiles/Images/324772_0_Hv_tBHIaD.png?updatedAt=1789033991356" class="card-img-top" alt="iPhone 18">
+					<div class="card-body d-flex flex-column">
+						<h2 class="card-title h5">iPhone 18</h2>
+						<p class="card-text">A powerful smartphone with a bright display, fast performance, and all-day battery life.</p>
+						<p class="product-price mb-3">₹1,79,000</p>
+						<button class="btn buy-button text-white mt-auto" type="button">Add to Cart</button>
+					</div>
+				</article>
+			</div>
+
+			<div class="col-12 col-md-6 col-lg-4">
+				<article class="card product-card shadow-sm">
+					<img src="https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/mba13-midnight-select-202503?wid=904&hei=840&fmt=jpeg&qlt=90&.v=1741885366392" class="card-img-top" alt="13-inch MacBook Air (M5)">
+					<div class="card-body d-flex flex-column">
+						<h2 class="card-title h5">13-inch MacBook Air (M5)</h2>
+						<p class="card-text">Work, create, and stream with a lightweight laptop built for everyday productivity.</p>
+						<p class="product-price mb-3">₹1,49,900</p>
+						<button class="btn buy-button text-white mt-auto" type="button">Add to Cart</button>
+					</div>
+				</article>
+			</div>
+
+			<div class="col-12 col-md-6 col-lg-4">
+				<article class="card product-card shadow-sm">
+					<img src="https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/airpods-max-hero-select-202409_FMT_WHH?wid=752&hei=636&fmt=jpeg&qlt=90&.v=WXBZVEZCOUNiUWlBYUtjZmtBc0J2MGkxeEVQUXVsbFk4WEhBc0JFOWdSN2pmMHBIdXRoME5iSzRYUmF4Y3dVRy81NGMrcU1sYkxwTFJaVHI1NEQzenBJRnRzZXYwZVJMZmZQVjdBR0RkVVNpdi91OXpsc3gvUHZvVGU1aUpOaFE" class="card-img-top" alt="Apple Airpods Max 2">
+					<div class="card-body d-flex flex-column">
+						<h2 class="card-title h5">Apple Airpods Max 2</h2>
+						<p class="card-text">Enjoy immersive sound, comfortable ear cushions, and reliable wireless listening.</p>
+						<p class="product-price mb-3">₹74,990</p>
+						<button class="btn buy-button text-white mt-auto" type="button">Add to Cart</button>
+					</div>
+				</article>
+			</div>
+		</div>
+	</main>
+</body>
+</html>
+
+2.Build a Zomato restaurant listing page using Bootstrap grid: arrange two restaurant cards per row, each card showing a restaurant name and a short description.<br><br><em><strong>Hint:</strong> Use col-6 inside a row to get two equal columns per row.</em>
+
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Zomato | Restaurants</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+	<style>
+		/* Keep the Bootstrap grid layout working when the CDN is unavailable. */
+		.container {
+			width: 100%;
+			margin-inline: auto;
+			padding-inline: 12px;
+		}
+
+		@media (min-width: 576px) { .container { max-width: 540px; } }
+		@media (min-width: 768px) { .container { max-width: 720px; } }
+		@media (min-width: 992px) { .container { max-width: 960px; } }
+		@media (min-width: 1200px) { .container { max-width: 1140px; } }
+		@media (min-width: 1400px) { .container { max-width: 1320px; } }
+
+		.row {
+			--bs-gutter-x: 1rem;
+			display: flex;
+			flex-wrap: wrap;
+			margin-inline: calc(var(--bs-gutter-x) * -.5);
+			row-gap: 1rem;
+		}
+
+		.row > * {
+			flex-shrink: 0;
+			width: 50%;
+			max-width: 100%;
+			padding-inline: calc(var(--bs-gutter-x) * .5);
+		}
+
+		body {
+			background: #f8f6f2;
+			color: #292623;
+			font-family: "DM Sans", sans-serif;
+		}
+
+		.topbar {
+			background: #fff;
+			border-bottom: 1px solid #e9e4de;
+		}
+
+		.brand {
+			color: #e23d45;
+			font-family: "Playfair Display", serif;
+			font-size: 1.8rem;
+			font-weight: 700;
+		}
+
+		.page-heading {
+			font-family: "Playfair Display", serif;
+		}
+
+		.restaurant-card {
+			height: 100%;
+			border: 1px solid #e9e4de;
+			border-radius: 6px;
+			background: #fff;
+			transition: transform 160ms ease, box-shadow 160ms ease;
+		}
+
+		.restaurant-card:hover {
+			transform: translateY(-3px);
+			box-shadow: 0 10px 24px rgb(41 38 35 / 8%);
+		}
+
+		.restaurant-card .card-title {
+			color: #292623;
+			font-size: 1.15rem;
+			font-weight: 700;
+		}
+
+		.restaurant-card .card-text {
+			color: #6e6963;
+			line-height: 1.6;
+		}
+
+		.cuisine-label {
+			color: #e23d45;
+			font-size: .75rem;
+			font-weight: 700;
+			letter-spacing: .08em;
+			text-transform: uppercase;
+		}
+	</style>
+</head>
+<body>
+	<header class="topbar">
+		<nav class="container py-3" aria-label="Main navigation">
+			<a class="brand text-decoration-none" href="#restaurants">zomato</a>
+		</nav>
+	</header>
+
+	<main class="container py-5" id="restaurants">
+		<div class="mb-4">
+			<p class="cuisine-label mb-2">Good food, close by</p>
+			<h1 class="page-heading mb-2">Restaurants to try</h1>
+			<p class="text-secondary mb-0">A few local favourites for your next meal.</p>
+		</div>
+
+		<div class="row g-3">
+			<div class="col-6">
+				<article class="card restaurant-card">
+					<div class="card-body p-4">
+						<p class="cuisine-label mb-2">Cafe</p>
+						<h2 class="card-title">Basil Valley Cafe</h2>
+						<p class="card-text mb-0">A welcoming cafe for relaxed meals, good company and a refreshing break.</p>
+					</div>
+				</article>
+			</div>
+			<div class="col-6">
+				<article class="card restaurant-card">
+					<div class="card-body p-4">
+						<p class="cuisine-label mb-2">Bakery &amp; Cafe</p>
+						<h2 class="card-title">Dough &amp; Doppio</h2>
+						<p class="card-text mb-0">A cosy stop for coffee, baked treats and easygoing cafe favourites.</p>
+					</div>
+				</article>
+			</div>
+			<div class="col-6">
+				<article class="card restaurant-card">
+					<div class="card-body p-4">
+						<p class="cuisine-label mb-2">Cafe</p>
+						<h2 class="card-title">White Valley Cafe</h2>
+						<p class="card-text mb-0">A comfortable place to meet friends over a meal or your favourite drink.</p>
+					</div>
+				</article>
+			</div>
+			<div class="col-6">
+				<article class="card restaurant-card">
+					<div class="card-body p-4">
+						<p class="cuisine-label mb-2">Dining</p>
+						<h2 class="card-title">Atmosphere</h2>
+						<p class="card-text mb-0">Settle in for a relaxed dining experience in a comfortable setting.</p>
+					</div>
+				</article>
+			</div>
+			<div class="col-6">
+				<article class="card restaurant-card">
+					<div class="card-body p-4">
+						<p class="cuisine-label mb-2">Cafe</p>
+						<h2 class="card-title">Size Zero Cafe</h2>
+						<p class="card-text mb-0">A casual cafe for light bites, refreshing drinks and laid-back catch-ups.</p>
+					</div>
+				</article>
+			</div>
+			<div class="col-6">
+				<article class="card restaurant-card">
+					<div class="card-body p-4">
+						<p class="cuisine-label mb-2">Coffee &amp; Cafe</p>
+						<h2 class="card-title">Caffotto</h2>
+						<p class="card-text mb-0">Drop in for a coffee, a quick bite or a relaxed catch-up.</p>
+					</div>
+				</article>
+			</div>
+		</div>
+	</main>
+</body>
+</html>
+
+3.Design a BookMyShow-like movie details section using Bootstrap: place a movie poster image in one column and movie details (title, genre, rating, and a 'Book Now' button) in the second column, using the grid system.
+
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Now Showing | Avengers Endgame Encore</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+		:root {
+			--ink: #20201f;
+			--muted: #77746f;
+			--accent: #e94b4b;
+			--paper: #f5f3ee;
+		}
+
+		* { box-sizing: border-box; }
+		body {
+			margin: 0;
+			background: var(--paper);
+			color: var(--ink);
+			font-family: "Segoe UI", sans-serif;
+		}
+
+		.container { width: 100%; margin-inline: auto; padding-inline: 16px; }
+		@media (min-width: 576px) { .container { max-width: 540px; } }
+		@media (min-width: 768px) { .container { max-width: 720px; } }
+		@media (min-width: 992px) { .container { max-width: 960px; } }
+		@media (min-width: 1200px) { .container { max-width: 1140px; } }
+		.row { display: flex; flex-wrap: wrap; margin-inline: -12px; row-gap: 24px; align-items: center; }
+		.row > * { width: 100%; padding-inline: 12px; }
+		@media (min-width: 768px) {
+			.row > .poster-column { width: 41.666667%; }
+			.row > .details-column { width: 58.333333%; }
+		}
+
+		.site-header { border-bottom: 1px solid #dedbd4; background: #fffdfa; }
+		.brand { color: var(--accent); font-size: 1.35rem; font-weight: 800; letter-spacing: .02em; }
+		.section-label { color: var(--accent); font-size: .75rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+		.movie-poster {
+			position: relative;
+			display: flex;
+			min-height: 440px;
+			aspect-ratio: 2 / 3;
+			width: 100%;
+			max-width: 320px;
+			overflow: hidden;
+			align-items: end;
+			padding: 28px;
+			background: #233b39;
+			box-shadow: 14px 14px 0 #e8d7b8;
+			color: white;
+		}
+		.poster-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+		.movie-title { max-width: 650px; font-family: Georgia, serif; font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 700; line-height: 1; }
+		.movie-meta { color: var(--muted); font-size: .95rem; }
+		.details-column { padding-left: 28px; }
+		.rating { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; background: #fffdfa; border: 1px solid #e5e0d7; }
+		.rating-score { color: #21865b; font-size: 1.2rem; font-weight: 800; }
+		.book-button { border: 0; border-radius: 4px; background: var(--accent); color: white; font-weight: 700; padding: 13px 28px; }
+		.book-button:hover, .book-button:focus-visible { background: #c9363e; color: white; }
+		@media (max-width: 767.98px) {
+			main { padding-block: 32px !important; }
+			.movie-poster { min-height: 390px; margin-inline: auto; }
+			.details-column { padding-left: 12px; text-align: center; }
+			.movie-title { margin-inline: auto; }
+		}
+	</style>
+</head>
+<body>
+	<header class="site-header">
+		<nav class="container py-3" aria-label="Main navigation">
+			<span class="brand">bookmyshow</span>
+		</nav>
+	</header>
+
+	<main class="container py-5">
+		<div class="row">
+			<div class="poster-column">
+				<div class="movie-poster" role="img" aria-label="Avengers Endgame Encore movie poster">
+					<img class="poster-image" src="https://cdn.district.in/movies-assets/images/cinema/_Gallery%20(2)-a6ae2240-a10e-11f1-839b-893ac46085dc.jpg" alt="Avengers Endgame Encore movie artwork" onerror="this.hidden=true">
+				</div>
+			</div>
+			<section class="details-column" aria-labelledby="movie-title">
+				<p class="section-label mb-3">Now showing</p>
+				<h1 class="movie-title mb-3" id="movie-title">Avengers Endgame Encore</h1>
+				<p class="movie-meta mb-4">Sci-Fi &nbsp;·&nbsp; Adventure &nbsp;·&nbsp; 3h 5m &nbsp;·&nbsp; English</p>
+				<div class="rating mb-4" aria-label="Rated 8.7 out of 10">
+					<span class="rating-score">★ 8.7</span>
+					<span class="text-secondary">Audience rating</span>
+				</div>
+				<p class="text-secondary mb-4">Return to the epic conclusion as Earth's heroes unite for one final battle to bring back those lost and protect the universe.</p>
+				<button class="book-button" type="button">Book Now</button>
+			</section>
+		</div>
+	</main>
+</body>
+</html>
+
+4.Refactor your 2-column layout to be mobile-friendly: make the columns stack vertically on screens smaller than 576px using Bootstrap's responsive grid classes.<br><br><em><strong>Hint:</strong> Try using col-12 for xs and col-6 for md and above.</em>
+
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Now Showing | Avengers Endgame Encore</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+		:root {
+			--ink: #20201f;
+			--muted: #77746f;
+			--accent: #e94b4b;
+			--paper: #f5f3ee;
+		}
+
+		* { box-sizing: border-box; }
+		body { margin: 0; background: var(--paper); color: var(--ink); font-family: "Segoe UI", sans-serif; }
+		.container { width: 100%; margin-inline: auto; padding-inline: 16px; }
+		@media (min-width: 576px) { .container { max-width: 540px; } }
+		@media (min-width: 768px) { .container { max-width: 720px; } }
+		@media (min-width: 992px) { .container { max-width: 960px; } }
+		@media (min-width: 1200px) { .container { max-width: 1140px; } }
+		.row { display: flex; flex-wrap: wrap; margin-inline: -12px; row-gap: 24px; align-items: center; }
+		.row > * { flex: 0 0 auto; width: 100%; padding-inline: 12px; }
+		@media (min-width: 768px) { .row > .col-md-6 { width: 50%; } }
+
+		.site-header { border-bottom: 1px solid #dedbd4; background: #fffdfa; }
+		.brand { color: var(--accent); font-size: 1.35rem; font-weight: 800; }
+		.section-label { color: var(--accent); font-size: .75rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+		.movie-poster { position: relative; width: 100%; max-width: 350px; aspect-ratio: 2 / 3; overflow: hidden; background: #233b39; box-shadow: 14px 14px 0 #e8d7b8; }
+		.poster-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+		.movie-title { max-width: 650px; font-family: Georgia, serif; font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 700; line-height: 1; }
+		.movie-meta { color: var(--muted); font-size: .95rem; }
+		.rating { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; background: #fffdfa; border: 1px solid #e5e0d7; }
+		.rating-score { color: #21865b; font-size: 1.2rem; font-weight: 800; }
+		.book-button { border: 0; border-radius: 4px; background: var(--accent); color: white; font-weight: 700; padding: 13px 28px; }
+		.book-button:hover, .book-button:focus-visible { background: #c9363e; color: white; }
+		@media (max-width: 767.98px) {
+			main { padding-block: 32px !important; }
+			.movie-poster { margin-inline: auto; }
+			.details-column { text-align: center; }
+			.movie-title { margin-inline: auto; }
+		}
+	</style>
+</head>
+<body>
+	<header class="site-header">
+		<nav class="container py-3" aria-label="Main navigation">
+			<span class="brand">bookmyshow</span>
+		</nav>
+	</header>
+
+	<main class="container py-5">
+		<div class="row">
+			<div class="col-12 col-md-6">
+				<div class="movie-poster" role="img" aria-label="Avengers Endgame Encore movie poster">
+					<img class="poster-image" src="https://cdn.district.in/movies-assets/images/cinema/_Gallery%20(2)-a6ae2240-a10e-11f1-839b-893ac46085dc.jpg" alt="Avengers Endgame Encore movie artwork" onerror="this.hidden=true">
+				</div>
+			</div>
+			<section class="col-12 col-md-6 details-column" aria-labelledby="movie-title">
+				<p class="section-label mb-3">Now showing</p>
+				<h1 class="movie-title mb-3" id="movie-title">Avengers Endgame Encore</h1>
+				<p class="movie-meta mb-4">Sci-Fi &nbsp;·&nbsp; Adventure &nbsp;·&nbsp; 3h 5m &nbsp;·&nbsp; English</p>
+				<div class="rating mb-4" aria-label="Rated 8.7 out of 10">
+					<span class="rating-score">★ 8.7</span>
+					<span class="text-secondary">Audience rating</span>
+				</div>
+				<p class="text-secondary mb-4">Return to the epic conclusion as Earth's heroes unite for one final battle to bring back those lost and protect the universe.</p>
+				<button class="book-button" type="button">Book Now</button>
+			</section>
+		</div>
+	</main>
+</body>
+</html>
+
+

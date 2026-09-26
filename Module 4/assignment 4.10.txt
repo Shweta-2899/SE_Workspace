@@ -1,0 +1,528 @@
+1.Create a Bootstrap Navbar for a music playlist app like Spotify, including links for Home, Playlists, and Profile. Make sure it collapses into a hamburger menu on mobile.
+
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Spotify | Your Music</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+		:root {
+			--night: #151716;
+			--panel: #202422;
+			--line: #343a36;
+			--text: #f5f4ef;
+			--muted: #a5aaa5;
+			--lime: #22c55e;
+		}
+
+		* { box-sizing: border-box; }
+		body { min-height: 100vh; margin: 0; background: var(--night); color: var(--text); font-family: "Segoe UI", sans-serif; }
+		a { color: inherit; }
+		.navbar { border-bottom: 1px solid var(--line); background: #1b1e1c; }
+		.navbar-inner { width: min(100% - 40px, 1160px); margin-inline: auto; }
+		.navbar-brand { display: inline-flex; align-items: center; gap: 10px; color: var(--text); font-size: 1.25rem; font-weight: 750; text-decoration: none; }
+		.brand-mark { display: block; width: 32px; height: 32px; border-radius: 50%; object-fit: contain; }
+		.navbar-toggler { display: none; padding: 8px; border: 1px solid #59605b; border-radius: 4px; background: transparent; color: var(--text); }
+		.navbar-toggler:focus-visible, .nav-link:focus-visible { outline: 2px solid var(--lime); outline-offset: 3px; }
+		.navbar-collapse { display: flex; flex-basis: 100%; flex-grow: 1; align-items: center; }
+		.navbar-nav { display: flex; flex-direction: row; gap: 8px; margin: 0; padding: 0; list-style: none; }
+		.nav-link { display: block; padding: 10px 14px; color: var(--muted); font-size: .95rem; font-weight: 600; text-decoration: none; }
+		.nav-link:hover, .nav-link.active { color: var(--text); }
+		.nav-link.active { box-shadow: inset 0 -2px var(--lime); }
+		.profile-link { margin-left: auto; }
+		.nav-toggle-icon, .nav-toggle-icon::before, .nav-toggle-icon::after { display: block; width: 20px; height: 2px; background: currentColor; }
+		.nav-toggle-icon { position: relative; }
+		.nav-toggle-icon::before, .nav-toggle-icon::after { position: absolute; left: 0; content: ""; }
+		.nav-toggle-icon::before { top: -6px; }
+		.nav-toggle-icon::after { top: 6px; }
+		main { width: min(100% - 40px, 1160px); margin: 0 auto; padding-block: 64px; }
+		.eyebrow { color: var(--lime); font-size: .75rem; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
+		h1 { max-width: 700px; margin: 12px 0; font-size: clamp(2.5rem, 7vw, 5rem); font-weight: 750; line-height: 1; }
+		.intro { max-width: 560px; color: var(--muted); font-size: 1.05rem; line-height: 1.65; }
+		.playlist-row { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 42px; }
+		.playlist { flex: 1 1 220px; max-width: 360px; min-height: 154px; padding: 22px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); }
+		.playlist span { color: var(--lime); font-size: .75rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+		.playlist h2 { margin: 22px 0 6px; font-size: 1.2rem; }
+		.playlist p { margin: 0; color: var(--muted); font-size: .9rem; }
+		@media (min-width: 768px) {
+			.navbar-expand-md .navbar-collapse { display: flex !important; }
+			.navbar-expand-md .navbar-toggler { display: none; }
+		}
+		@media (max-width: 767.98px) {
+			.navbar-inner { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; padding-block: 12px; }
+			.navbar-toggler { display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 40px; }
+			.navbar-collapse { display: none; width: 100%; padding-top: 10px; }
+			.navbar-collapse.show { display: block; }
+			.navbar-nav { flex-direction: column; gap: 0; }
+			.nav-link { padding: 12px 4px; }
+			.nav-link.active { box-shadow: none; color: var(--lime); }
+			.profile-link { margin-left: 0; }
+			main { padding-block: 48px; }
+		}
+	</style>
+</head>
+<body>
+	<nav class="navbar navbar-expand-md" aria-label="Main navigation">
+		<div class="navbar-inner">
+			<a class="navbar-brand" href="#home" aria-label="Spotify home">
+				<img class="brand-mark" src="data:image/png;base64,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" alt="Spotify" aria-hidden="true">
+				<span>Spotify</span>
+			</a>
+			<button class="navbar-toggler" type="button" aria-controls="main-navigation" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="nav-toggle-icon" aria-hidden="true"></span>
+			</button>
+			<div class="navbar-collapse" id="main-navigation">
+				<ul class="navbar-nav">
+					<li><a class="nav-link active" href="#home" aria-current="page">Home</a></li>
+					<li><a class="nav-link" href="#playlists">Playlists</a></li>
+					<li class="profile-link"><a class="nav-link" href="#profile">Profile</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<main id="home">
+		<p class="eyebrow">Your sound, your space</p>
+		<h1>Find your next favourite.</h1>
+		<p class="intro">Pick a mood and press play. Your playlists are right here, ready for wherever the day takes you.</p>
+		<section class="playlist-row" id="playlists" aria-label="Featured playlists">
+			<article class="playlist"><span>01 / Easy listening</span><h2>Slow mornings</h2><p>Soft rhythms for a gentler start.</p></article>
+			<article class="playlist"><span>02 / New discoveries</span><h2>Fresh frequency</h2><p>New sounds worth keeping close.</p></article>
+			<article class="playlist"><span>03 / After hours</span><h2>Night drive</h2><p>Keep the city moving after dark.</p></article>
+		</section>
+		<div id="profile" aria-hidden="true"></div>
+	</main>
+
+	<script>
+		const menuButton = document.querySelector(".navbar-toggler");
+		const navigation = document.querySelector("#main-navigation");
+
+		menuButton.addEventListener("click", () => {
+			const isExpanded = menuButton.getAttribute("aria-expanded") === "true";
+			menuButton.setAttribute("aria-expanded", String(!isExpanded));
+			navigation.classList.toggle("show", !isExpanded);
+		});
+	</script>
+</body>
+</html>
+
+2.Design a Bootstrap Card to display a Flipkart-style product preview with an image, product name, price, and a 'Buy Now' button.
+
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Flipkart | Product Preview</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+		:root {
+			--blue: #1768c4;
+			--yellow: #ffd54a;
+			--ink: #202b3a;
+			--muted: #687587;
+			--canvas: #f2f5f8;
+		}
+
+		* { box-sizing: border-box; }
+		body { min-height: 100vh; margin: 0; background: var(--canvas); color: var(--ink); font-family: "Segoe UI", sans-serif; }
+		.container { width: min(100% - 32px, 1120px); margin-inline: auto; }
+		.site-header { background: var(--blue); color: white; }
+		.header-inner { display: flex; min-height: 64px; align-items: center; gap: 12px; }
+		.brand { color: white; font-size: 1.45rem; font-weight: 800; font-style: italic; text-decoration: none; }
+		.brand span { color: var(--yellow); }
+		main { display: grid; min-height: calc(100vh - 64px); place-items: center; padding-block: 42px; }
+		.product-card { display: grid; width: min(100%, 850px); grid-template-columns: minmax(240px, 1fr) 1.1fr; overflow: hidden; border: 1px solid #e0e6ed; border-radius: 6px; background: white; box-shadow: 0 12px 32px rgb(32 43 58 / 8%); }
+		.card-img-wrap { display: grid; min-height: 390px; place-items: center; overflow: hidden; background: #e8f1fa; }
+		.card-img-top { display: block; width: 100%; height: 100%; min-height: 390px; object-fit: cover; }
+		.card-body { display: flex; flex-direction: column; align-items: flex-start; padding: clamp(24px, 5vw, 44px); }
+		.product-category { margin-bottom: 10px; color: var(--blue); font-size: .75rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+		.card-title { margin-bottom: 12px; font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; line-height: 1.2; }
+		.product-description { margin-bottom: 22px; color: var(--muted); line-height: 1.65; }
+		.product-price { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; margin-bottom: 24px; }
+		.price-current { color: #172333; font-size: 2rem; font-weight: 800; }
+		.price-original { color: #8993a0; font-size: 1rem; text-decoration: line-through; }
+		.price-off { color: #16854a; font-size: .9rem; font-weight: 700; }
+		.buy-button { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 26px; border: 0; border-radius: 4px; background: var(--yellow); color: #192638; font-size: .95rem; font-weight: 800; text-decoration: none; }
+		.buy-button:hover, .buy-button:focus-visible { background: #f4c52f; color: #192638; }
+		.delivery-note { margin: 16px 0 0; color: var(--muted); font-size: .85rem; }
+		@media (max-width: 640px) {
+			main { min-height: auto; padding-block: 24px; }
+			.product-card { grid-template-columns: 1fr; }
+			.card-img-wrap, .card-img-top { min-height: 270px; max-height: 320px; }
+			.card-body { padding: 24px; }
+		}
+	</style>
+</head>
+<body>
+	<header class="site-header">
+		<div class="container header-inner">
+			<a class="brand" href="#product" aria-label="Flipkart home">Flipkart<span>.</span></a>
+		</div>
+	</header>
+
+	<main class="container" id="product">
+		<article class="card product-card">
+			<div class="card-img-wrap">
+				<img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMa4VUbZ3P3BUYujHBpMTbDMLQwPrnQxDv2kxT1rw9Hw&amp;s=10" alt="AirPods Max headphones" onerror="this.hidden=true">
+			</div>
+			<div class="card-body">
+				<p class="product-category">Audio · Wireless</p>
+				<h1 class="card-title">AirPods Max</h1>
+				<p class="product-description">Enjoy rich, detailed sound and a comfortable over-ear fit, with a long-lasting battery for listening throughout the day.</p>
+				<div class="product-price" aria-label="Price 67,900 rupees">
+					<span class="price-current">₹67,900</span>
+				</div>
+				<a class="btn btn-warning buy-button" href="#product">Buy Now</a>
+				<p class="delivery-note">Free delivery · 1-year warranty</p>
+			</div>
+		</article>
+	</main>
+</body>
+</html>
+
+3.Build a Bootstrap Carousel that cycles through 3 movie posters, each with a caption below like BookMyShow's featured movies section.<br><br><em><strong>Hint:</strong> Use Bootstrap's Carousel component and add images with captions inside each carousel-item.</em>
+
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>BookMyShow | Featured Movies</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+		:root {
+			--ink: #252323;
+			--muted: #77716f;
+			--red: #e84452;
+			--paper: #f7f5f1;
+		}
+
+		* { box-sizing: border-box; }
+		body { min-height: 100vh; margin: 0; background: var(--paper); color: var(--ink); font-family: "Segoe UI", sans-serif; }
+		.site-header { background: #fff; border-bottom: 1px solid #e8e3df; }
+		.header-inner { display: flex; width: min(100% - 40px, 1160px); min-height: 68px; margin-inline: auto; align-items: center; justify-content: space-between; }
+		.brand { color: var(--red); font-size: 1.65rem; font-weight: 850; letter-spacing: -.04em; text-decoration: none; }
+		.header-note { color: var(--muted); font-size: .9rem; }
+		main { width: min(100% - 40px, 1100px); margin-inline: auto; padding-block: 54px 70px; }
+		.section-kicker { margin-bottom: 9px; color: var(--red); font-size: .74rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+		h1 { margin: 0; font-family: Georgia, serif; font-size: clamp(2.1rem, 5vw, 3.35rem); line-height: 1.08; }
+		.section-intro { margin: 12px 0 30px; color: var(--muted); }
+		.carousel { position: relative; width: min(100%, 720px); margin-inline: auto; }
+		.carousel-inner { position: relative; width: 100%; overflow: hidden; }
+		.carousel-item { display: none; position: relative; width: 100%; }
+		.carousel-item.active { display: block; }
+		.poster-frame { width: min(100%, 360px); margin-inline: auto; overflow: hidden; background: #dedbd6; box-shadow: 0 16px 42px rgb(37 35 35 / 16%); }
+		.poster-image { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+		.carousel-caption { position: static; padding: 18px 54px 4px; color: var(--ink); text-align: center; }
+		.movie-genre { margin-bottom: 5px; color: var(--red); font-size: .73rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+		.carousel-caption h2 { margin: 0 0 6px; font-size: 1.3rem; font-weight: 750; }
+		.carousel-caption p { margin: 0; color: var(--muted); font-size: .92rem; }
+		.carousel-control-prev, .carousel-control-next { position: absolute; top: 37%; z-index: 2; display: grid; width: 46px; height: 46px; place-items: center; border: 1px solid #ded8d3; border-radius: 50%; background: #fff; color: var(--ink); cursor: pointer; box-shadow: 0 4px 14px rgb(37 35 35 / 10%); }
+		.carousel-control-prev { left: max(0px, calc(50% - 250px)); }
+		.carousel-control-next { right: max(0px, calc(50% - 250px)); }
+		.carousel-control-prev:hover, .carousel-control-next:hover { background: var(--red); color: #fff; border-color: var(--red); }
+		.carousel-control-prev-icon, .carousel-control-next-icon { width: 10px; height: 10px; border-top: 2px solid currentColor; border-right: 2px solid currentColor; }
+		.carousel-control-prev-icon { transform: rotate(-135deg); margin-left: 4px; }
+		.carousel-control-next-icon { transform: rotate(45deg); margin-right: 4px; }
+		.carousel-indicators { display: flex; justify-content: center; gap: 9px; margin: 23px 0 0; padding: 0; list-style: none; }
+		.carousel-indicators button { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 50%; background: #c9c3bf; cursor: pointer; }
+		.carousel-indicators button.active { width: 24px; border-radius: 5px; background: var(--red); }
+		.carousel-item[aria-hidden="true"] { visibility: hidden; }
+		.visually-hidden { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip: rect(0, 0, 0, 0) !important; white-space: nowrap !important; border: 0 !important; }
+		@media (max-width: 520px) {
+			.header-inner, main { width: min(100% - 28px, 1100px); }
+			.header-note { font-size: .78rem; }
+			main { padding-block: 38px 52px; }
+			.carousel-control-prev, .carousel-control-next { top: 35%; width: 38px; height: 38px; }
+			.carousel-control-prev { left: 2px; }
+			.carousel-control-next { right: 2px; }
+			.carousel-caption { padding-inline: 42px; }
+		}
+	</style>
+</head>
+<body>
+	<header class="site-header">
+		<div class="header-inner">
+			<a class="brand" href="#featured" aria-label="BookMyShow home">bookmyshow</a>
+			<span class="header-note">Movies worth watching together</span>
+		</div>
+	</header>
+
+	<main id="featured">
+		<p class="section-kicker">On the big screen</p>
+		<h1>Featured movies</h1>
+		<p class="section-intro">Find your next story to get lost in.</p>
+
+		<div id="featuredMovies" class="carousel slide" aria-label="Featured movie posters" aria-roledescription="carousel">
+			<div class="carousel-inner">
+				<div class="carousel-item active" aria-hidden="false">
+					<div class="poster-frame">
+						<img class="poster-image" src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&amp;fit=crop&amp;w=900&amp;q=85" alt="A lone figure looking toward a dramatic, misty mountain landscape">
+					</div>
+					<div class="carousel-caption">
+						<p class="movie-genre">Adventure · Drama</p>
+						<h2>Beyond the Horizon</h2>
+						<p>A journey to the edge of everything familiar.</p>
+					</div>
+				</div>
+				<div class="carousel-item" aria-hidden="true">
+					<div class="poster-frame">
+						<img class="poster-image" src="https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?auto=format&amp;fit=crop&amp;w=900&amp;q=85" alt="A luminous field of stars across the night sky">
+					</div>
+					<div class="carousel-caption">
+						<p class="movie-genre">Sci-Fi · Thriller</p>
+						<h2>Signal in the Stars</h2>
+						<p>One message changes the fate of the universe.</p>
+					</div>
+				</div>
+				<div class="carousel-item" aria-hidden="true">
+					<div class="poster-frame">
+						<img class="poster-image" src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&amp;fit=crop&amp;w=900&amp;q=85" alt="Warm sunrise spreading over a quiet countryside">
+					</div>
+					<div class="carousel-caption">
+						<p class="movie-genre">Romance · Feel-good</p>
+						<h2>Before the Morning</h2>
+						<p>Two strangers, one night, and a second chance.</p>
+					</div>
+				</div>
+			</div>
+
+			<button class="carousel-control-prev" type="button" aria-label="Previous movie" data-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Previous</span>
+			</button>
+			<button class="carousel-control-next" type="button" aria-label="Next movie" data-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Next</span>
+			</button>
+			<div class="carousel-indicators" aria-label="Choose a movie">
+				<button class="active" type="button" aria-label="Show Beyond the Horizon" aria-current="true" data-slide-to="0"></button>
+				<button type="button" aria-label="Show Signal in the Stars" data-slide-to="1"></button>
+				<button type="button" aria-label="Show Before the Morning" data-slide-to="2"></button>
+			</div>
+		</div>
+	</main>
+
+	<script>
+		const carousel = document.querySelector("#featuredMovies");
+		const slides = [...carousel.querySelectorAll(".carousel-item")];
+		const indicators = [...carousel.querySelectorAll("[data-slide-to]")];
+		let activeIndex = 0;
+
+		function showSlide(index) {
+			activeIndex = (index + slides.length) % slides.length;
+			slides.forEach((slide, slideIndex) => {
+				const isActive = slideIndex === activeIndex;
+				slide.classList.toggle("active", isActive);
+				slide.setAttribute("aria-hidden", String(!isActive));
+			});
+			indicators.forEach((indicator, indicatorIndex) => {
+				const isActive = indicatorIndex === activeIndex;
+				indicator.classList.toggle("active", isActive);
+				if (isActive) indicator.setAttribute("aria-current", "true");
+				else indicator.removeAttribute("aria-current");
+			});
+		}
+
+		carousel.querySelector("[data-slide='prev']").addEventListener("click", () => showSlide(activeIndex - 1));
+		carousel.querySelector("[data-slide='next']").addEventListener("click", () => showSlide(activeIndex + 1));
+		indicators.forEach((indicator, index) => indicator.addEventListener("click", () => showSlide(index)));
+		let autoplay = window.setInterval(() => showSlide(activeIndex + 1), 5000);
+		carousel.addEventListener("mouseenter", () => window.clearInterval(autoplay));
+		carousel.addEventListener("mouseleave", () => { autoplay = window.setInterval(() => showSlide(activeIndex + 1), 5000); });
+	</script>
+</body>
+</html>
+
+4.Create a Bootstrap Form for a Zomato-style restaurant review: include fields for name, rating (1-5 stars), and a review message, along with a submit button.
+
+
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Zomato | Write a Review</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+		:root {
+			--red: #e23d45;
+			--ink: #282523;
+			--muted: #77716e;
+			--paper: #f7f5f1;
+			--line: #e6e1dc;
+		}
+
+		* { box-sizing: border-box; }
+		body { min-height: 100vh; margin: 0; background: var(--paper); color: var(--ink); font-family: "Segoe UI", sans-serif; }
+		.site-header { background: #fff; border-bottom: 1px solid var(--line); }
+		.header-inner { display: flex; width: min(100% - 40px, 1080px); min-height: 68px; margin-inline: auto; align-items: center; }
+		.brand { color: var(--red); font-size: 1.7rem; font-weight: 850; letter-spacing: -.06em; text-decoration: none; }
+		main { width: min(100% - 32px, 720px); margin: 0 auto; padding-block: 56px; }
+		.eyebrow { margin-bottom: 8px; color: var(--red); font-size: .75rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+		h1 { margin: 0; font-family: Georgia, serif; font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.12; }
+		.intro { margin: 12px 0 28px; color: var(--muted); }
+		.review-form { padding: clamp(22px, 5vw, 40px); border: 1px solid var(--line); border-radius: 6px; background: #fff; box-shadow: 0 12px 32px rgb(40 37 35 / 6%); }
+		.form-label, .rating-legend { margin-bottom: 9px; font-size: .95rem; font-weight: 700; }
+		.form-control { min-height: 48px; border-color: #d9d3ce; border-radius: 4px; }
+		.form-control:focus { border-color: var(--red); box-shadow: 0 0 0 .2rem rgb(226 61 69 / 15%); }
+		.rating-group { display: flex; flex-direction: row-reverse; justify-content: flex-end; gap: 5px; width: max-content; }
+		.rating-choice { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+		.rating-star { color: #c9c3be; cursor: pointer; font-size: 2.2rem; line-height: 1; transition: color 120ms ease, transform 120ms ease; }
+		.rating-star:hover, .rating-star:hover ~ .rating-star, .rating-choice:checked ~ .rating-star { color: #f3ae29; }
+		.rating-choice:focus-visible + .rating-star { outline: 2px solid var(--red); outline-offset: 4px; }
+		.rating-hint { margin: 8px 0 0; color: var(--muted); font-size: .85rem; }
+		.submit-button { min-height: 48px; padding-inline: 24px; border: 0; border-radius: 4px; background: var(--red); color: #fff; font-weight: 750; }
+		.submit-button:hover, .submit-button:focus-visible { background: #c8323c; color: #fff; }
+		.success-message { display: none; margin: 20px 0 0; padding: 12px 14px; border-left: 4px solid #268653; background: #edf7f0; color: #245d3b; }
+		.success-message.show { display: block; }
+		@media (max-width: 575.98px) { main { padding-block: 36px; } }
+	</style>
+</head>
+<body>
+	<header class="site-header">
+		<div class="header-inner">
+			<a class="brand" href="#review-form" aria-label="Zomato home">zomato</a>
+		</div>
+	</header>
+
+	<main>
+		<p class="eyebrow">Your opinion matters</p>
+		<h1>How was your visit?</h1>
+		<p class="intro">Share a few words to help others find their next favourite place.</p>
+
+		<form class="review-form" id="review-form">
+			<div class="mb-4">
+				<label class="form-label" for="reviewer-name">Your name</label>
+				<input class="form-control" id="reviewer-name" name="name" type="text" value="siya" placeholder="Enter your name" autocomplete="name" required>
+			</div>
+
+			<fieldset class="mb-4">
+				<legend class="rating-legend">Your rating</legend>
+				<div class="rating-group" role="radiogroup" aria-label="Rating from 1 to 5 stars">
+					<input class="rating-choice" id="rating-5" name="rating" type="radio" value="5" required>
+					<label class="rating-star" for="rating-5" aria-label="5 stars">★</label>
+					<input class="rating-choice" id="rating-4" name="rating" type="radio" value="4">
+					<label class="rating-star" for="rating-4" aria-label="4 stars">★</label>
+					<input class="rating-choice" id="rating-3" name="rating" type="radio" value="3">
+					<label class="rating-star" for="rating-3" aria-label="3 stars">★</label>
+					<input class="rating-choice" id="rating-2" name="rating" type="radio" value="2">
+					<label class="rating-star" for="rating-2" aria-label="2 stars">★</label>
+					<input class="rating-choice" id="rating-1" name="rating" type="radio" value="1">
+					<label class="rating-star" for="rating-1" aria-label="1 star">★</label>
+				</div>
+				<p class="rating-hint">Select a rating from 1 to 5 stars.</p>
+			</fieldset>
+
+			<div class="mb-4">
+				<label class="form-label" for="review-message">Your review</label>
+				<textarea class="form-control" id="review-message" name="review" rows="5" placeholder="What did you enjoy? What could be better?" required></textarea>
+			</div>
+
+			<button class="btn btn-danger submit-button" type="submit">Submit Review</button>
+			<p class="success-message" id="success-message" role="status" aria-live="polite"></p>
+		</form>
+	</main>
+
+	<script>
+		const reviewForm = document.querySelector("#review-form");
+		const successMessage = document.querySelector("#success-message");
+
+		reviewForm.addEventListener("submit", (event) => {
+			event.preventDefault();
+			if (!reviewForm.reportValidity()) return;
+
+			const reviewerName = reviewForm.elements.name.value.trim();
+			const rating = reviewForm.elements.rating.value;
+			successMessage.textContent = `Thanks, ${reviewerName}. Your ${rating}-star review has been submitted.`;
+			successMessage.classList.add("show");
+			reviewForm.reset();
+		});
+	</script>
+</body>
+</html>
+
+5.Use Bootstrap Buttons to create a row of filter buttons (e.g., 'All', 'Veg', 'Non-Veg', 'Desserts') for a food delivery app homepage. Highlight the selected filter using the 'active' class.
+
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Freshly | Discover Food</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+		:root {
+			--tomato: #db4b3e;
+			--ink: #282724;
+			--muted: #77746f;
+			--canvas: #f8f6f2;
+		}
+
+		* { box-sizing: border-box; }
+		body { min-height: 100vh; margin: 0; background: var(--canvas); color: var(--ink); font-family: "Segoe UI", sans-serif; }
+		.site-header { background: #fff; border-bottom: 1px solid #e9e4de; }
+		.header-inner { display: flex; width: min(100% - 40px, 1120px); min-height: 68px; margin-inline: auto; align-items: center; justify-content: space-between; }
+		.brand { color: var(--tomato); font-size: 1.5rem; font-weight: 850; letter-spacing: -.04em; text-decoration: none; }
+		.location { color: var(--muted); font-size: .9rem; }
+		main { width: min(100% - 40px, 1120px); margin: 0 auto; padding-block: 54px; }
+		.eyebrow { margin-bottom: 8px; color: var(--tomato); font-size: .75rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+		h1 { margin: 0; font-family: Georgia, serif; font-size: clamp(2.2rem, 5vw, 3.5rem); line-height: 1.1; }
+		.intro { margin: 12px 0 28px; color: var(--muted); }
+		.filter-row { display: flex; flex-wrap: wrap; gap: 10px; }
+		.filter-row .btn { min-height: 42px; padding: 9px 18px; border: 1px solid #ded8d1; border-radius: 24px; background: #fff; color: #514d49; font-size: .9rem; font-weight: 650; }
+		.filter-row .btn:hover { border-color: var(--tomato); color: var(--tomato); }
+		.filter-row .btn.active, .filter-row .btn.active:hover { border-color: var(--tomato); background: var(--tomato); color: #fff; box-shadow: 0 4px 12px rgb(219 75 62 / 18%); }
+		.filter-status { margin-top: 22px; color: var(--muted); font-size: .9rem; }
+		@media (max-width: 575.98px) {
+			.header-inner, main { width: min(100% - 28px, 1120px); }
+			main { padding-block: 38px; }
+			.filter-row { gap: 8px; }
+			.filter-row .btn { padding-inline: 14px; }
+		}
+	</style>
+</head>
+<body>
+	<header class="site-header">
+		<div class="header-inner">
+			<a class="brand" href="#home">freshly</a>
+			<span class="location">Delivering near you</span>
+		</div>
+	</header>
+
+	<main id="home">
+		<p class="eyebrow">What are you craving?</p>
+		<h1>Find your next favourite.</h1>
+		<p class="intro">Choose a category to explore today's menu.</p>
+		<div class="filter-row" role="group" aria-label="Filter food by category">
+			<button class="btn active" type="button" aria-pressed="true">All</button>
+			<button class="btn" type="button" aria-pressed="false">Veg</button>
+			<button class="btn" type="button" aria-pressed="false">Non-Veg</button>
+			<button class="btn" type="button" aria-pressed="false">Desserts</button>
+		</div>
+		<p class="filter-status" id="filter-status" aria-live="polite">Showing all dishes</p>
+	</main>
+
+	<script>
+		const filterButtons = [...document.querySelectorAll(".filter-row .btn")];
+		const filterStatus = document.querySelector("#filter-status");
+
+		filterButtons.forEach((button) => {
+			button.addEventListener("click", () => {
+				filterButtons.forEach((filterButton) => {
+					const isSelected = filterButton === button;
+					filterButton.classList.toggle("active", isSelected);
+					filterButton.setAttribute("aria-pressed", String(isSelected));
+				});
+				filterStatus.textContent = button.textContent === "All"
+					? "Showing all dishes"
+					: `Showing ${button.textContent} dishes`;
+			});
+		});
+	</script>
+</body>
+</html>
+
