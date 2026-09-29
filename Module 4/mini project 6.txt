@@ -1,0 +1,516 @@
+1.Create an HTML form called musicLinksForm that accepts Spotify, YouTube Music, and Apple Music profile URLs as input fields, and display the submitted links as styled preview cards below the form.
+2.
+Design a responsive UI for a personal 'Gamer Tag' bio link page that adapts to both mobile and desktop screens, showing the user's avatar, gaming alias, and buttons linking to their Twitch, Discord, and Steam profiles.<br><br><em><strong>Hint:</strong> Use CSS Flexbox or Grid for layout and media queries for responsiveness.</em>
+3.
+Style the input form for adding social links so that each input field displays a platform icon (Instagram, LinkedIn, etc.) inside the input box, similar to how Zomato shows icons in their search bar.<br><br><em><strong>Hint:</strong> Use background-image or position an <img> inside the input with CSS.</em>
+4.
+After submitting the form, show a preview card for each link with the platform logo, the username/handle extracted from the URL, and a 'Visit' button that opens the link in a new tab.<br><br><em><strong>Constraint:</strong> The preview cards must look visually distinct for each platform (different colors or borders).</em>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Hydra Dynamo | Gamer Links</title>
+	<style>
+		:root {
+			--ink: #17212b;
+			--muted: #66717c;
+			--paper: #f6f4ef;
+			--panel: #ffffff;
+			--line: #d9ddd8;
+			--coral: #ff654d;
+			--lime: #c8ef5d;
+			--cyan: #37c8d3;
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			margin: 0;
+			min-height: 100vh;
+			background: linear-gradient(135deg, #f6f4ef 0%, #e7f0e7 55%, #d8eef0 100%);
+			color: var(--ink);
+			font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+		}
+
+		.page {
+			width: min(1120px, calc(100% - 32px));
+			margin: 0 auto;
+			padding: 36px 0 56px;
+		}
+
+		.profile {
+			display: grid;
+			grid-template-columns: 170px 1fr auto;
+			align-items: center;
+			gap: 28px;
+			padding: 28px;
+			background: var(--ink);
+			color: #ffffff;
+			border-radius: 20px;
+			box-shadow: 10px 10px 0 var(--coral);
+		}
+
+		.avatar {
+			width: 150px;
+			height: 150px;
+			border: 6px solid var(--lime);
+			border-radius: 50%;
+			object-fit: cover;
+			background: #30404a;
+		}
+
+		.eyebrow {
+			margin: 0 0 8px;
+			color: var(--lime);
+			font-size: 0.8rem;
+			font-weight: bold;
+			letter-spacing: 0.14em;
+			text-transform: uppercase;
+		}
+
+		h1,
+		h2,
+		p {
+			margin-top: 0;
+		}
+
+		h1 {
+			margin-bottom: 10px;
+			font-size: clamp(2.1rem, 5vw, 4rem);
+			line-height: 0.95;
+		}
+
+		.bio {
+			max-width: 520px;
+			margin-bottom: 0;
+			color: #d5dde0;
+			line-height: 1.6;
+		}
+
+		.social-links {
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+			min-width: 170px;
+		}
+
+		.social-links a,
+		.visit-button {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 8px;
+			padding: 11px 16px;
+			border-radius: 8px;
+			font-weight: bold;
+			text-decoration: none;
+			transition: transform 0.2s ease, box-shadow 0.2s ease;
+		}
+
+		.social-links a:hover,
+		.visit-button:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 5px 0 rgba(255, 255, 255, 0.24);
+		}
+
+		.twitch {
+			background: #9147ff;
+			color: #ffffff;
+		}
+
+		.discord {
+			background: #5865f2;
+			color: #ffffff;
+		}
+
+		.steam {
+			background: #1b2838;
+			color: #ffffff;
+		}
+
+		.content-grid {
+			display: grid;
+			grid-template-columns: minmax(280px, 0.85fr) minmax(340px, 1.15fr);
+			gap: 28px;
+			margin-top: 48px;
+		}
+
+		.section-heading {
+			display: flex;
+			align-items: end;
+			justify-content: space-between;
+			gap: 16px;
+			margin-bottom: 18px;
+		}
+
+		h2 {
+			margin-bottom: 0;
+			font-size: 1.6rem;
+		}
+
+		.section-heading p {
+			margin-bottom: 2px;
+			color: var(--muted);
+			font-size: 0.9rem;
+		}
+
+		.form-panel,
+		.preview-panel {
+			padding: 26px;
+			background: rgba(255, 255, 255, 0.84);
+			border: 1px solid var(--line);
+			border-radius: 16px;
+		}
+
+		.form-panel {
+			border-top: 6px solid var(--coral);
+		}
+
+		.field {
+			margin-bottom: 16px;
+		}
+
+		label {
+			display: block;
+			margin-bottom: 7px;
+			font-size: 0.88rem;
+			font-weight: bold;
+		}
+
+		.input-shell {
+			display: flex;
+			align-items: center;
+			overflow: hidden;
+			background: var(--panel);
+			border: 1px solid var(--line);
+			border-radius: 8px;
+		}
+
+		.platform-icon {
+			display: grid;
+			width: 42px;
+			height: 42px;
+			flex: 0 0 42px;
+			place-items: center;
+			color: #ffffff;
+			font-size: 1.05rem;
+			font-weight: bold;
+		}
+
+		.spotify-icon {
+			background: #1db954;
+		}
+
+		.youtube-icon {
+			background: #ff0033;
+		}
+
+		.apple-icon {
+			background: #111111;
+		}
+
+		input {
+			width: 100%;
+			min-width: 0;
+			padding: 12px;
+			border: 0;
+			outline: 0;
+			background: transparent;
+			color: var(--ink);
+			font: inherit;
+		}
+
+		.input-shell:focus-within {
+			border-color: var(--cyan);
+			box-shadow: 0 0 0 3px rgba(55, 200, 211, 0.2);
+		}
+
+		.submit-button {
+			width: 100%;
+			margin-top: 6px;
+			padding: 13px 18px;
+			border: 0;
+			border-radius: 8px;
+			background: var(--coral);
+			color: #ffffff;
+			cursor: pointer;
+			font: inherit;
+			font-weight: bold;
+		}
+
+		.submit-button:hover {
+			background: #e9523d;
+		}
+
+		#preview-cards {
+			display: grid;
+			gap: 12px;
+		}
+
+		.empty-state {
+			margin: 0;
+			padding: 28px 16px;
+			border: 1px dashed var(--line);
+			border-radius: 10px;
+			color: var(--muted);
+			text-align: center;
+		}
+
+		.preview-card {
+			display: grid;
+			grid-template-columns: 46px 1fr auto;
+			align-items: center;
+			gap: 14px;
+			padding: 14px;
+			background: var(--panel);
+			border: 1px solid var(--line);
+			border-left: 6px solid var(--cyan);
+			border-radius: 10px;
+		}
+
+		.preview-card.spotify-card {
+			border-left-color: #1db954;
+		}
+
+		.preview-card.youtube-card {
+			border-left-color: #ff0033;
+		}
+
+		.preview-card.apple-card {
+			border-left-color: #111111;
+		}
+
+		.card-icon {
+			display: grid;
+			width: 46px;
+			height: 46px;
+			place-items: center;
+			border-radius: 10px;
+			color: #ffffff;
+			font-weight: bold;
+		}
+
+		.card-copy strong,
+		.card-copy span {
+			display: block;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+
+		.card-copy span {
+			margin-top: 4px;
+			color: var(--muted);
+			font-size: 0.84rem;
+		}
+
+		.visit-button {
+			padding: 9px 13px;
+			background: var(--ink);
+			color: #ffffff;
+			font-size: 0.85rem;
+		}
+
+		@media (max-width: 820px) {
+			.profile {
+				grid-template-columns: 120px 1fr;
+			}
+
+			.avatar {
+				width: 112px;
+				height: 112px;
+			}
+
+			.social-links {
+				grid-column: 1 / -1;
+				flex-direction: row;
+				flex-wrap: wrap;
+			}
+
+			.social-links a {
+				flex: 1;
+			}
+
+			.content-grid {
+				grid-template-columns: 1fr;
+			}
+		}
+
+		@media (max-width: 520px) {
+			.page {
+				width: min(100% - 20px, 440px);
+				padding-top: 20px;
+			}
+
+			.profile {
+				grid-template-columns: 1fr;
+				gap: 18px;
+				padding: 22px;
+				text-align: center;
+				box-shadow: 6px 6px 0 var(--coral);
+			}
+
+			.avatar {
+				margin: 0 auto;
+			}
+
+			.social-links {
+				display: grid;
+				grid-template-columns: 1fr;
+			}
+
+			.form-panel,
+			.preview-panel {
+				padding: 20px;
+			}
+
+			.section-heading {
+				display: block;
+			}
+
+			.section-heading p {
+				margin-top: 6px;
+			}
+
+			.preview-card {
+				grid-template-columns: 42px 1fr;
+			}
+
+			.visit-button {
+				grid-column: 2;
+				justify-self: start;
+			}
+		}
+	</style>
+</head>
+<body>
+	<main class="page">
+		<section class="profile" aria-labelledby="profile-name">
+			<img class="avatar" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHNifHpVo4eIaUkz_KZEc2GaVpdQ4S-4LqYwmtEGNmK6MyQdeTH9bBvN0&amp;s=10" alt="Hydra Dynamo's original profile picture">
+			<div>
+				<p class="eyebrow">Collection Level 97 / online</p>
+				<h1 id="profile-name">Hydra Dynamo</h1>
+				<p class="bio">Competitive gamer, clutch-play specialist, and daily streamer chasing intense matches and unforgettable wins.</p>
+			</div>
+			<nav class="social-links" aria-label="Gaming profiles">
+				<a class="twitch" href="https://www.twitch.tv/" target="_blank" rel="noopener noreferrer">◉ Twitch</a>
+				<a class="discord" href="https://discord.com/" target="_blank" rel="noopener noreferrer">◌ Discord</a>
+				<a class="steam" href="https://steamcommunity.com/" target="_blank" rel="noopener noreferrer">◈ Steam</a>
+			</nav>
+		</section>
+
+		<div class="content-grid">
+			<section class="form-panel" aria-labelledby="form-title">
+				<div class="section-heading">
+					<h2 id="form-title">Add your music links</h2>
+					<p>Drop in a profile URL.</p>
+				</div>
+				<form id="musicLinksForm" name="musicLinksForm">
+					<div class="field">
+						<label for="spotify-url">Spotify</label>
+						<div class="input-shell">
+							<span class="platform-icon spotify-icon" aria-hidden="true">S</span>
+							<input id="spotify-url" name="spotify" type="url" placeholder="https://open.spotify.com/user/..." autocomplete="url">
+						</div>
+					</div>
+					<div class="field">
+						<label for="youtube-url">YouTube Music</label>
+						<div class="input-shell">
+							<span class="platform-icon youtube-icon" aria-hidden="true">▶</span>
+							<input id="youtube-url" name="youtube" type="url" placeholder="https://music.youtube.com/channel/..." autocomplete="url">
+						</div>
+					</div>
+					<div class="field">
+						<label for="apple-url">Apple Music</label>
+						<div class="input-shell">
+							<span class="platform-icon apple-icon" aria-hidden="true">A</span>
+							<input id="apple-url" name="apple" type="url" placeholder="https://music.apple.com/profile/..." autocomplete="url">
+						</div>
+					</div>
+					<button class="submit-button" type="submit">Show my music links</button>
+				</form>
+			</section>
+
+			<section class="preview-panel" aria-labelledby="preview-title">
+				<div class="section-heading">
+					<h2 id="preview-title">Link previews</h2>
+					<p>Ready to share</p>
+				</div>
+				<div id="preview-cards" aria-live="polite">
+					<p class="empty-state">Your submitted music links will appear here.</p>
+				</div>
+			</section>
+		</div>
+	</main>
+
+	<script>
+		const musicLinksForm = document.getElementById('musicLinksForm');
+		const previewCards = document.getElementById('preview-cards');
+
+		const platforms = {
+			spotify: { name: 'Spotify', icon: 'S', cardClass: 'spotify-card', iconClass: 'spotify-icon' },
+			youtube: { name: 'YouTube Music', icon: '▶', cardClass: 'youtube-card', iconClass: 'youtube-icon' },
+			apple: { name: 'Apple Music', icon: 'A', cardClass: 'apple-card', iconClass: 'apple-icon' }
+		};
+
+		function getHandle(link) {
+			try {
+				const url = new URL(link);
+				const parts = url.pathname.split('/').filter(Boolean);
+				return parts.at(-1) || url.hostname;
+			} catch (error) {
+				return link;
+			}
+		}
+
+		musicLinksForm.addEventListener('submit', (event) => {
+			event.preventDefault();
+			const formData = new FormData(musicLinksForm);
+			previewCards.replaceChildren();
+			let linkCount = 0;
+
+			Object.entries(platforms).forEach(([key, platform]) => {
+				const link = formData.get(key).trim();
+				if (!link) {
+					return;
+				}
+
+				linkCount += 1;
+				const card = document.createElement('article');
+				card.className = `preview-card ${platform.cardClass}`;
+
+				const icon = document.createElement('span');
+				icon.className = `card-icon ${platform.iconClass}`;
+				icon.setAttribute('aria-hidden', 'true');
+				icon.textContent = platform.icon;
+
+				const copy = document.createElement('div');
+				copy.className = 'card-copy';
+				const name = document.createElement('strong');
+				name.textContent = platform.name;
+				const handle = document.createElement('span');
+				handle.textContent = getHandle(link);
+				copy.append(name, handle);
+
+				const visit = document.createElement('a');
+				visit.className = 'visit-button';
+				visit.href = link;
+				visit.target = '_blank';
+				visit.rel = 'noopener noreferrer';
+				visit.textContent = 'Visit';
+
+				card.append(icon, copy, visit);
+				previewCards.append(card);
+			});
+
+			if (!linkCount) {
+				previewCards.innerHTML = '<p class="empty-state">Add at least one profile URL to create a preview.</p>';
+			}
+		});
+	</script>
+</body>
+</html>
