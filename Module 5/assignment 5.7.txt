@@ -1,0 +1,53 @@
+1.Create a table called Restaurant with columns: id, name, location, and cuisine. Apply NOT NULL constraint to name and location, and make id the PRIMARY KEY.
+
+CREATE TABLE Restaurant (
+    id INT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    location VARCHAR(150) NOT NULL,
+    cuisine VARCHAR(50)
+);
+
+2.Create a table called FoodOrder with columns: order_id, restaurant_id, user_id, and order_total. Set order_id as PRIMARY KEY, and add a FOREIGN KEY constraint on restaurant_id referencing Restaurant(id).
+
+CREATE TABLE FoodOrder (
+    order_id INT PRIMARY KEY,
+    restaurant_id INT,
+    user_id INT,
+    order_total DECIMAL(10, 2),
+    FOREIGN KEY (restaurant_id) REFERENCES Restaurant(id)
+);
+
+3.Insert 6 rows into a table called SpotifyUser with columns: user_id, username, email, and subscription_type. Ensure that username is UNIQUE and email is NOT NULL.<br><br><em><strong>Hint:</strong> Use the UNIQUE and NOT NULL constraints when creating the table.</em>
+
+CREATE TABLE SpotifyUser (
+    user_id INT PRIMARY KEY,
+    username VARCHAR(50) UNIQUE,
+    email VARCHAR(100) NOT NULL,
+    subscription_type VARCHAR(20)
+);
+
+INSERT INTO SpotifyUser (user_id, username, email, subscription_type) VALUES
+(1, 'musiclover01', 'musiclover01@example.com', 'Premium'),
+(2, 'beatmaster22', 'beatmaster22@example.com', 'Free'),
+(3, 'soundwave33', 'soundwave33@example.com', 'Premium'),
+(4, 'melodyfan44', 'melodyfan44@example.com', 'Student'),
+(5, 'rhythmking55', 'rhythmking55@example.com', 'Premium'),
+(6, 'songbird66', 'songbird66@example.com', 'Free');
+
+4.Create a VIEW named TopSpendersView that shows usernames and order_total from a FoodOrder table where order_total is greater than 1000.
+
+CREATE VIEW TopSpendersView AS
+SELECT 
+    SpotifyUser.username,
+    FoodOrder.order_total
+FROM FoodOrder
+INNER JOIN SpotifyUser
+    ON FoodOrder.user_id = SpotifyUser.user_id
+WHERE FoodOrder.order_total > 1000;
+
+5.Write a SQL query to list all users from the TopSpendersView who have spent more than 2000, sorted by order_total descending.<br><br><em><strong>Constraint:</strong> Only use the TopSpendersView for your query, not the original FoodOrder table.</em>
+
+SELECT username, order_total
+FROM TopSpendersView
+WHERE order_total > 2000
+ORDER BY order_total DESC;

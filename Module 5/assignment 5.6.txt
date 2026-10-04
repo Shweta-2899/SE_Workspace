@@ -1,0 +1,29 @@
+1.Create a SQL query using GROUP BY to show the total number of orders placed by each user in an 'orders' table, displaying user_id and order_count.
+
+SELECT user_id, COUNT(*) AS order_count FROM orders GROUP BY user_id;
+
+2.Write a SQL query to display the names of restaurants from a 'restaurants' table that have received an average rating above 4.0, using GROUP BY and HAVING.
+
+SELECT name, AVG(rating) AS average_rating FROM restaurants GROUP BY name HAVING AVG(rating) > 4.0;
+
+3.Suppose you have a 'payments' table with columns user_id, amount, and payment_date. Write a subquery to find user_ids who have made a single payment above ₹2000 in any transaction.
+
+SELECT DISTINCT user_id
+FROM payments
+WHERE user_id IN (
+    SELECT user_id
+    FROM payments
+    WHERE amount > 2000
+);
+
+4.Using a nested subquery, display the names of movies from a 'movies' table that have a higher average rating than the overall average rating of all movies.<br><br><em><strong>Hint:</strong> Use a subquery to calculate the overall average rating, then compare each movie's average rating against it in the main query.</em>
+
+SELECT name
+FROM movies
+GROUP BY name
+HAVING AVG(rating) > (
+    SELECT AVG(rating)
+    FROM movies
+);
+
+
