@@ -1,0 +1,175 @@
+1.Create a SQL script to insert a new order into an Orders table, then use COMMIT to save the transaction and verify that the new order persists after reconnecting to the database.
+
+sql
+```
+START TRANSACTION;
+
+INSERT INTO Orders (
+    OrderID,
+    CustomerID,
+    OrderDate,
+    TotalAmount,
+    Status
+)
+VALUES (
+    1001,
+    101,
+    CURRENT_DATE,
+    250.00,
+    'Pending'
+);
+
+COMMIT;
+
+SELECT *
+FROM Orders
+WHERE OrderID = 1001;
+
+-- Reconnect to the database and run this query again
+SELECT *
+FROM Orders
+WHERE OrderID = 1001;
+```
+
+2.Simulate a Zomato-style food order process: insert two new items into an OrderItems table, then use ROLLBACK to undo the changes before committing. Check that no new items remain in the table after rollback.
+
+sql
+```
+START TRANSACTION;
+
+INSERT INTO OrderItems (
+    OrderItemID,
+    OrderID,
+    ItemName,
+    Quantity,
+    Price
+)
+VALUES
+    (1, 1001, 'Margherita Pizza', 2, 250.00),
+    (2, 1001, 'Veg Burger', 1, 150.00);
+
+-- Undo the inserted items
+ROLLBACK;
+
+-- Verify that no new items remain
+SELECT *
+FROM OrderItems
+WHERE OrderID = 1001
+  AND OrderItemID IN (1, 2);
+
+-- Expected result: 0 rows
+```
+3.In a Flipkart-like shopping cart scenario, use SAVEPOINT to mark a point after adding a product to the Cart table, add another product, then use ROLLBACK TO SAVEPOINT to undo only the last addition. Show the final contents of the Cart table.
+
+sql
+```
+START TRANSACTION;
+
+INSERT INTO Cart (CartID, UserID, ProductID, ProductName, Quantity, Price)
+VALUES (1, 101, 201, 'Wireless Mouse', 1, 599.00);
+
+SAVEPOINT product_added;
+
+INSERT INTO Cart (CartID, UserID, ProductID, ProductName, Quantity, Price)
+VALUES (2, 101, 202, 'Keyboard', 1, 999.00);
+
+ROLLBACK TO SAVEPOINT product_added;
+
+SELECT *
+FROM Cart
+WHERE UserID = 101;
+
+COMMIT;
+```
+4.Write a trigger on a Wallet table that automatically deducts the purchase amount from the user's balance whenever a new transaction is inserted, similar to how Paytm updates wallet balance after a payment.
+
+sql
+```
+CREATE TRIGGER deduct_wallet_balance
+AFTER INSERT ON Transactions
+FOR EACH ROW
+BEGIN
+    UPDATE Wallet
+    SET Balance = Balance - NEW.Amount
+    WHERE UserID = NEW.UserID;
+END;
+```
+
+5.Use ChatGPT to generate a SQL test scenario where a trigger incorrectly updates a user's balance after an expense entry. Paste the scenario and your corrected trigger code, explaining how you fixed the error.<br><br><em><strong>Hint:</strong> Ask ChatGPT for a buggy trigger example and a test case that exposes the bug.</em>
+
+1. Buggy trigger example
+The following trigger incorrectly adds an expense amount to the user's balance instead of deducting it.
+
+sql
+CREATE TRIGGER update_balance_after_expense
+AFTER INSERT ON Transactions
+FOR EACH ROW
+BEGIN
+    UPDATE Wallet
+    SET Balance = Balance + NEW.Amount
+    WHERE UserID = NEW.UserID;
+END;
+2. SQL test scenario
+sql
+CREATE TABLE Wallet (
+    UserID INT PRIMARY KEY,
+    Balance DECIMAL(10,2)
+);
+
+CREATE TABLE Transactions (
+    TransactionID INT PRIMARY KEY,
+    UserID INT,
+    Amount DECIMAL(10,2),
+    TransactionType VARCHAR(20)
+);
+
+INSERT INTO Wallet VALUES (101, 5000.00);
+
+INSERT INTO Transactions
+VALUES (1, 101, 500.00, 'Expense');
+
+SELECT * FROM Wallet;
+Expected balance: 4500.00
+
+Actual balance with the buggy trigger: 5500.00
+
+The trigger adds ₹500 instead of subtracting it, causing an incorrect wallet balance.
+
+3. Corrected trigger code
+sql
+DROP TRIGGER IF EXISTS update_balance_after_expense;
+
+DELIMITER //
+
+CREATE TRIGGER update_balance_after_expense
+AFTER INSERT ON Transactions
+FOR EACH ROW
+BEGIN
+    IF NEW.TransactionType = 'Expense' THEN
+        UPDATE Wallet
+        SET Balance = Balance - NEW.Amount
+        WHERE UserID = NEW.UserID;
+    END IF;
+END //
+
+DELIMITER ;
+4. Test the corrected trigger
+sql
+INSERT INTO Transactions
+VALUES (2, 101, 500.00, 'Expense');
+
+SELECT * FROM Wallet;
+Expected balance after the corrected trigger: ₹4000.00, assuming the wallet started at ₹5000 and both ₹500 expense entries were processed after the corrected trigger was installed.
+
+5. Explanation
+Fixed the calculation: Changed Balance + NEW.Amount to Balance - NEW.Amount.
+
+Added a condition: The trigger deducts money only when TransactionType = 'Expense'.
+
+Prevented incorrect updates: Income transactions will not be deducted by this trigger.
+
+Note: The test scenario should be run on a fresh database or reset the wallet balance and transaction records before testing to avoid results being affected by previous runs.
+
+
+
+

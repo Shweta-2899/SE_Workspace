@@ -1,0 +1,80 @@
+1.Write a PL/SQL block that declares two variables: one for a user's name (VARCHAR2) and one for their age (NUMBER). Assign values and print both using DBMS_OUTPUT.PUT_LINE.
+
+
+DECLARE
+    user_name VARCHAR2(50) := 'Siya';
+    user_age  NUMBER := 25;
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Name: ' || user_name);
+    DBMS_OUTPUT.PUT_LINE('Age: ' || user_age);
+END;
+/
+
+2.Create a PL/SQL block that uses an IF statement to check if a given order amount is above 500. If yes, print 'Eligible for free delivery', else print 'Delivery charges apply'.
+
+
+DECLARE
+    order_amount NUMBER := 499;
+BEGIN
+    IF order_amount > 500 THEN
+        DBMS_OUTPUT.PUT_LINE('Eligible for free delivery');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Delivery charges apply');
+    END IF;
+END;
+/
+
+3.Write a PL/SQL block that uses a simple LOOP to print the numbers 1 to 5 using DBMS_OUTPUT.PUT_LINE.<br><br><em><strong>Hint:</strong> Use a counter variable and EXIT WHEN condition inside the loop.</em>
+
+DECLARE
+    counter NUMBER := 1;
+BEGIN
+    LOOP
+        DBMS_OUTPUT.PUT_LINE(counter);
+        counter := counter + 1;
+
+        EXIT WHEN counter > 5;
+    END LOOP;
+END;
+/
+
+4.Declare a cursor in PL/SQL to select all product names from a table called PRODUCTS. Fetch each product name and print it using DBMS_OUTPUT.PUT_LINE.<br><br><em><strong>Hint:</strong> Assume the PRODUCTS table has a column PRODUCT_NAME.</em>
+
+DECLARE
+    CURSOR product_cursor IS
+        SELECT product_name
+        FROM products;
+
+    v_product_name products.product_name%TYPE;
+BEGIN
+    OPEN product_cursor;
+
+    LOOP
+        FETCH product_cursor INTO v_product_name;
+        EXIT WHEN product_cursor%NOTFOUND;
+
+        DBMS_OUTPUT.PUT_LINE(v_product_name);
+    END LOOP;
+
+    CLOSE product_cursor;
+END;
+/
+
+5.Write a PL/SQL block that tries to divide two numbers entered as variables. If a division by zero occurs, catch the exception and print 'Cannot divide by zero'. Otherwise, print the result.
+
+
+DECLARE
+    num1   NUMBER := 10;
+    num2   NUMBER := 0;
+    result NUMBER;
+BEGIN
+    result := num1 / num2;
+    DBMS_OUTPUT.PUT_LINE('Result: ' || result);
+
+EXCEPTION
+    WHEN ZERO_DIVIDE THEN
+        DBMS_OUTPUT.PUT_LINE('Cannot divide by zero');
+END;
+/
+
+
